@@ -1,4 +1,4 @@
-#  CashAbroad - Landing Page
+# CashAbroad - Landing Page
 
 Landing page moderna para CashAbroad, plataforma de conversión de MXN a USDC con efectos visuales avanzados.
 
