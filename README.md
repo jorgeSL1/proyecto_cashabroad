@@ -311,16 +311,16 @@ npm run deploy
 
 ##  Características del Proyecto
 
-- ✅ React 18 + Vite
-- ✅ Tailwind CSS para estilos
-- ✅ Framer Motion para animaciones
-- ✅ React Router para navegación
-- ✅ Dark Mode con persistencia
-- ✅ Efectos WebGL (Three.js + OGL)
-- ✅ Componentes 3D interactivos
-- ✅ Diseño responsive
-- ✅ Loader animado
-- ✅ 3 páginas navegables
+- React 18 + Vite
+- Tailwind CSS para estilos
+- Framer Motion para animaciones
+- React Router para navegación
+- Dark Mode con persistencia
+- Efectos WebGL (Three.js + OGL)
+- Componentes 3D interactivos
+- Diseño responsive
+- Loader animado
+- 3 páginas navegables
 
 ---
 
