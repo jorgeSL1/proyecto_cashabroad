@@ -10,7 +10,7 @@ export default function Loader({ onLoadComplete }) {
       setTimeout(() => {
         onLoadComplete?.();
       }, 800);
-    }, 1500);
+    }, 2500);
 
     return () => clearTimeout(timer);
   }, [onLoadComplete]);
@@ -41,7 +41,7 @@ export default function Loader({ onLoadComplete }) {
               duration: 0.6,
               exit: { duration: 0.4 }
             }}
-            className="relative z-10 flex flex-col items-center"
+            className="relative z-10 flex flex-col items-center gap-8"
           >
             {/* Logo */}
             <motion.div
@@ -50,9 +50,40 @@ export default function Loader({ onLoadComplete }) {
               transition={{ delay: 0.2, duration: 0.5 }}
               className="text-center"
             >
-              <h1 className="text-6xl md:text-8xl font-bold text-white">
+              <h1 className="text-6xl md:text-8xl font-bold text-white mb-2">
                 Cash<span className="text-primary">Abroad</span>
               </h1>
+              <motion.p
+                initial={{ opacity: 0 }}
+                animate={{ opacity: 1 }}
+                transition={{ delay: 0.5, duration: 0.5 }}
+                className="text-gray-400 text-lg"
+              >
+                Conversiones seguras MXN a USDC
+              </motion.p>
+            </motion.div>
+
+            {/* Puntos animados */}
+            <motion.div
+              initial={{ opacity: 0 }}
+              animate={{ opacity: 1 }}
+              transition={{ delay: 0.8 }}
+              className="flex gap-2"
+            >
+              {[0, 1, 2].map((i) => (
+                <motion.div
+                  key={i}
+                  initial={{ scale: 0 }}
+                  animate={{ scale: [0, 1.2, 1] }}
+                  transition={{
+                    delay: 1 + i * 0.15,
+                    duration: 0.4,
+                    repeat: Infinity,
+                    repeatDelay: 1
+                  }}
+                  className="w-2 h-2 bg-primary rounded-full"
+                />
+              ))}
             </motion.div>
           </motion.div>
 
