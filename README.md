@@ -66,7 +66,7 @@ npm run dev
 
 ---
 
-## 📜 Comandos Disponibles
+## Comandos Disponibles
 ```bash
 # Desarrollo (puerto 5173)
 npm run dev
@@ -143,7 +143,7 @@ npm install
 
 ---
 
-## 🎨 Configuración de Tailwind CSS
+##  Configuración de Tailwind CSS
 
 El proyecto ya debe tener estos archivos configurados:
 
@@ -192,7 +192,7 @@ export default {
 
 ---
 
-## 📁 Estructura del Proyecto
+##  Estructura del Proyecto
 ```
 proyecto_cashabroad/
 ├── src/
@@ -223,7 +223,7 @@ proyecto_cashabroad/
 
 ---
 
-## 🐛 Solución de Problemas Comunes
+##  Solucion de algunos errores que pueden surgir 
 
 ### Error: "Cannot find module 'three'"
 ```bash
