@@ -15,6 +15,14 @@ const clamp = (v, min = 0, max = 100) => Math.min(Math.max(v, min), max);
 const round = (v, precision = 3) => parseFloat(v.toFixed(precision));
 const adjust = (v, fMin, fMax, tMin, tMax) => round(tMin + ((tMax - tMin) * (v - fMin)) / (fMax - fMin));
 
+// Hook para detectar si es dispositivo táctil
+const useIsTouchDevice = () => {
+  return useMemo(() => {
+    if (typeof window === 'undefined') return false;
+    return 'ontouchstart' in window || navigator.maxTouchPoints > 0;
+  }, []);
+};
+
 const ProfileCardComponent = ({
   avatarUrl = 'https://api.dicebear.com/7.x/avataaars/svg?seed=user',
   innerGradient,
@@ -34,9 +42,9 @@ const ProfileCardComponent = ({
 }) => {
   const wrapRef = useRef(null);
   const shellRef = useRef(null);
-
   const enterTimerRef = useRef(null);
   const leaveRafRef = useRef(null);
+  const isTouchDevice = useIsTouchDevice();
 
   const tiltEngine = useMemo(() => {
     if (!enableTilt) return null;
@@ -152,6 +160,13 @@ const ProfileCardComponent = ({
 
   const getOffsets = (evt, el) => {
     const rect = el.getBoundingClientRect();
+    // Soporte para eventos táctiles
+    if (evt.touches && evt.touches.length > 0) {
+      return { 
+        x: evt.touches[0].clientX - rect.left, 
+        y: evt.touches[0].clientY - rect.top 
+      };
+    }
     return { x: evt.clientX - rect.left, y: evt.clientY - rect.top };
   };
 
@@ -225,6 +240,43 @@ const ProfileCardComponent = ({
     [tiltEngine, mobileTiltSensitivity]
   );
 
+  // Manejador para eventos táctiles
+  const handleTouchMove = useCallback(
+    event => {
+      if (!enableMobileTilt) return;
+      const shell = shellRef.current;
+      if (!shell || !tiltEngine) return;
+      
+      const { x, y } = getOffsets(event, shell);
+      tiltEngine.setTarget(x, y);
+    },
+    [tiltEngine, enableMobileTilt]
+  );
+
+  const handleTouchStart = useCallback(
+    event => {
+      const shell = shellRef.current;
+      if (!shell || !tiltEngine) return;
+
+      shell.classList.add('active');
+      const { x, y } = getOffsets(event, shell);
+      tiltEngine.setTarget(x, y);
+    },
+    [tiltEngine]
+  );
+
+  const handleTouchEnd = useCallback(() => {
+    const shell = shellRef.current;
+    if (!shell || !tiltEngine) return;
+
+    tiltEngine.toCenter();
+    
+    // Pequeño delay antes de remover la clase active
+    setTimeout(() => {
+      shell.classList.remove('active');
+    }, 300);
+  }, [tiltEngine]);
+
   useEffect(() => {
     if (!enableTilt || !tiltEngine) return;
 
@@ -235,10 +287,21 @@ const ProfileCardComponent = ({
     const pointerEnterHandler = handlePointerEnter;
     const pointerLeaveHandler = handlePointerLeave;
     const deviceOrientationHandler = handleDeviceOrientation;
+    const touchMoveHandler = handleTouchMove;
+    const touchStartHandler = handleTouchStart;
+    const touchEndHandler = handleTouchEnd;
 
+    // Eventos de puntero para desktop
     shell.addEventListener('pointerenter', pointerEnterHandler);
     shell.addEventListener('pointermove', pointerMoveHandler);
     shell.addEventListener('pointerleave', pointerLeaveHandler);
+
+    // Eventos táctiles para móvil
+    if (isTouchDevice) {
+      shell.addEventListener('touchstart', touchStartHandler, { passive: true });
+      shell.addEventListener('touchmove', touchMoveHandler, { passive: true });
+      shell.addEventListener('touchend', touchEndHandler);
+    }
 
     const handleClick = () => {
       if (!enableMobileTilt || location.protocol !== 'https:') return;
@@ -269,6 +332,13 @@ const ProfileCardComponent = ({
       shell.removeEventListener('pointermove', pointerMoveHandler);
       shell.removeEventListener('pointerleave', pointerLeaveHandler);
       shell.removeEventListener('click', handleClick);
+      
+      if (isTouchDevice) {
+        shell.removeEventListener('touchstart', touchStartHandler);
+        shell.removeEventListener('touchmove', touchMoveHandler);
+        shell.removeEventListener('touchend', touchEndHandler);
+      }
+      
       window.removeEventListener('deviceorientation', deviceOrientationHandler);
       if (enterTimerRef.current) window.clearTimeout(enterTimerRef.current);
       if (leaveRafRef.current) cancelAnimationFrame(leaveRafRef.current);
@@ -279,10 +349,14 @@ const ProfileCardComponent = ({
     enableTilt,
     enableMobileTilt,
     tiltEngine,
+    isTouchDevice,
     handlePointerMove,
     handlePointerEnter,
     handlePointerLeave,
-    handleDeviceOrientation
+    handleDeviceOrientation,
+    handleTouchMove,
+    handleTouchStart,
+    handleTouchEnd
   ]);
 
   const cardStyle = useMemo(
@@ -293,7 +367,8 @@ const ProfileCardComponent = ({
     [innerGradient, behindGlowColor]
   );
 
-  const handleContactClick = useCallback(() => {
+  const handleContactClick = useCallback((e) => {
+    e.stopPropagation();
     onContactClick?.();
   }, [onContactClick]);
 
@@ -333,6 +408,7 @@ const ProfileCardComponent = ({
                   <button
                     className="pc-contact-btn"
                     onClick={handleContactClick}
+                    onTouchEnd={handleContactClick}
                     style={{ pointerEvents: 'auto' }}
                     type="button"
                     aria-label={`Contact ${name || 'user'}`}

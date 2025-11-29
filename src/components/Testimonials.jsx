@@ -84,38 +84,116 @@ export default function Testimonials() {
   };
 
   return (
-    <section className="py-12 sm:py-16 lg:py-20 px-4 sm:px-6 bg-white dark:bg-gray-900 overflow-hidden">
-      <div className="max-w-7xl mx-auto">
+    <section 
+      className="
+        py-10 px-4
+        sm:py-14 sm:px-6
+        md:py-16
+        lg:py-20 lg:px-8
+        bg-white dark:bg-gray-900 
+        overflow-hidden
+        w-full
+      "
+    >
+      <div className="max-w-7xl mx-auto w-full">
         
-        {/* Header */}
+        {/* Header - Mobile First */}
         <motion.div
           initial={{ opacity: 0, y: 20 }}
           whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true }}
+          viewport={{ once: true, margin: "-50px" }}
           transition={{ duration: 0.6 }}
-          className="text-center mb-10 sm:mb-16"
+          className="
+            text-center 
+            mb-8
+            sm:mb-12
+            lg:mb-16
+            px-2
+          "
         >
-          <h2 className="text-2xl sm:text-3xl md:text-4xl lg:text-5xl font-bold mb-3 sm:mb-4">
+          {/* Título - escala progresiva mobile-first */}
+          <h2 
+            className="
+              text-2xl leading-tight
+              xs:text-[1.75rem]
+              sm:text-3xl
+              md:text-4xl
+              lg:text-5xl
+              font-bold 
+              mb-3
+              sm:mb-4
+            "
+          >
             Nuestros <span className="text-primary">usuarios</span>
           </h2>
-          <p className="text-base sm:text-lg lg:text-xl text-gray-600 dark:text-gray-300 max-w-2xl mx-auto px-4">
+          
+          {/* Subtítulo */}
+          <p 
+            className="
+              text-sm leading-relaxed
+              sm:text-base
+              md:text-lg
+              lg:text-xl
+              text-gray-600 dark:text-gray-300 
+              max-w-[90%]
+              sm:max-w-xl
+              md:max-w-2xl
+              mx-auto
+            "
+          >
             Miles de personas confían en CashAbroad para sus transacciones
           </p>
-          <p className="text-xs sm:text-sm text-gray-500 dark:text-gray-400 mt-3 sm:mt-4">
+          
+          {/* Hint de interacción */}
+          <p 
+            className="
+              text-xs
+              sm:text-sm
+              text-gray-500 dark:text-gray-400 
+              mt-3
+              sm:mt-4
+            "
+          >
             👆 Toca en ver reseña para leer más
           </p>
         </motion.div>
 
-        {/* Grid de ProfileCards */}
-        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 sm:gap-8 max-w-6xl mx-auto">
+        {/* Grid de ProfileCards - Mobile First */}
+        <div 
+          className="
+            grid 
+            grid-cols-1
+            gap-6
+            
+            sm:grid-cols-2 
+            sm:gap-6
+            
+            lg:grid-cols-3 
+            lg:gap-8
+            
+            max-w-sm mx-auto
+            sm:max-w-2xl
+            lg:max-w-6xl
+            
+            px-2
+            sm:px-0
+          "
+        >
           {testimonials.map((testimonial, index) => (
             <motion.div
               key={testimonial.id}
               initial={{ opacity: 0, y: 30 }}
               whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true }}
-              transition={{ duration: 0.5, delay: index * 0.15 }}
-              className="cursor-pointer flex justify-center"
+              viewport={{ once: true, margin: "-30px" }}
+              transition={{ 
+                duration: 0.5, 
+                delay: index * 0.1 // Reducido para móvil
+              }}
+              className="
+                cursor-pointer 
+                flex justify-center
+                w-full
+              "
             >
               <ProfileCard
                 name={testimonial.name}
@@ -126,7 +204,7 @@ export default function Testimonials() {
                 contactText="Ver Reseña"
                 showUserInfo={true}
                 enableTilt={true}
-                enableMobileTilt={false}
+                enableMobileTilt={false} // Deshabilitado en móvil para mejor UX táctil
                 behindGlowEnabled={true}
                 behindGlowColor={testimonial.behindGlowColor}
                 onContactClick={() => handleCardClick(testimonial)}

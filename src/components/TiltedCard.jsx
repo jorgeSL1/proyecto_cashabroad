@@ -1,4 +1,4 @@
-import { useRef, useState } from 'react';
+import { useRef, useState, useEffect } from 'react';
 import { motion, useMotionValue, useSpring } from 'framer-motion';
 
 const springValues = {
@@ -11,18 +11,35 @@ export default function TiltedCard({
   imageSrc,
   altText = 'Tilted card image',
   captionText = '',
-  containerHeight = '300px',
+  // Nuevos props responsive - mobile first
+  containerHeight = 'auto',
   containerWidth = '100%',
-  imageHeight = '300px',
-  imageWidth = '300px',
+  imageHeight = '100%',
+  imageWidth = '100%',
+  // Props para tamaños específicos (opcionales)
+  mobileHeight = '250px',
+  tabletHeight = '280px',
+  desktopHeight = '300px',
+  mobileWidth = '100%',
+  tabletWidth = '300px',
+  desktopWidth = '300px',
+  // Comportamiento
   scaleOnHover = 1.1,
   rotateAmplitude = 14,
   showMobileWarning = false,
   showTooltip = true,
   overlayContent = null,
-  displayOverlayContent = false
+  displayOverlayContent = false,
+  // Nuevo: deshabilitar efecto en móvil para mejor UX táctil
+  disableTiltOnMobile = true
 }) {
   const ref = useRef(null);
+  const [isMobile, setIsMobile] = useState(false);
+  const [dimensions, setDimensions] = useState({
+    width: mobileWidth,
+    height: mobileHeight
+  });
+
   const x = useMotionValue(0);
   const y = useMotionValue(0);
   const rotateX = useSpring(useMotionValue(0), springValues);
@@ -36,23 +53,63 @@ export default function TiltedCard({
   });
   const [lastY, setLastY] = useState(0);
 
+  // Detectar tamaño de pantalla y ajustar dimensiones
+  useEffect(() => {
+    function handleResize() {
+      const width = window.innerWidth;
+      
+      if (width < 640) {
+        // Mobile
+        setIsMobile(true);
+        setDimensions({
+          width: mobileWidth,
+          height: mobileHeight
+        });
+      } else if (width < 1024) {
+        // Tablet
+        setIsMobile(false);
+        setDimensions({
+          width: tabletWidth,
+          height: tabletHeight
+        });
+      } else {
+        // Desktop
+        setIsMobile(false);
+        setDimensions({
+          width: desktopWidth,
+          height: desktopHeight
+        });
+      }
+    }
+
+    handleResize();
+    window.addEventListener('resize', handleResize);
+    return () => window.removeEventListener('resize', handleResize);
+  }, [mobileWidth, mobileHeight, tabletWidth, tabletHeight, desktopWidth, desktopHeight]);
+
   function handleMouse(e) {
+    // Deshabilitar tilt en móvil si está configurado
+    if (isMobile && disableTiltOnMobile) return;
     if (!ref.current) return;
+
     const rect = ref.current.getBoundingClientRect();
     const offsetX = e.clientX - rect.left - rect.width / 2;
     const offsetY = e.clientY - rect.top - rect.height / 2;
     const rotationX = (offsetY / (rect.height / 2)) * -rotateAmplitude;
     const rotationY = (offsetX / (rect.width / 2)) * rotateAmplitude;
+    
     rotateX.set(rotationX);
     rotateY.set(rotationY);
     x.set(e.clientX - rect.left);
     y.set(e.clientY - rect.top);
+    
     const velocityY = offsetY - lastY;
     rotateFigcaption.set(-velocityY * 0.6);
     setLastY(offsetY);
   }
 
   function handleMouseEnter() {
+    if (isMobile && disableTiltOnMobile) return;
     scale.set(scaleOnHover);
     opacity.set(1);
   }
@@ -65,51 +122,167 @@ export default function TiltedCard({
     rotateFigcaption.set(0);
   }
 
+  // Touch handlers para móvil
+  function handleTouchStart() {
+    if (!disableTiltOnMobile) {
+      scale.set(scaleOnHover * 0.98); // Escala más sutil en touch
+    }
+  }
+
+  function handleTouchEnd() {
+    scale.set(1);
+    rotateX.set(0);
+    rotateY.set(0);
+  }
+
   return (
     <figure
       ref={ref}
-      className="relative w-full h-full [perspective:800px] flex flex-col items-center justify-center"
+      className="
+        relative 
+        w-full 
+        h-full 
+        [perspective:800px] 
+        flex 
+        flex-col 
+        items-center 
+        justify-center
+        touch-manipulation
+        px-4
+        sm:px-0
+      "
       style={{
-        height: containerHeight,
-        width: containerWidth
+        height: containerHeight === 'auto' ? dimensions.height : containerHeight,
+        width: containerWidth,
+        maxWidth: '100%'
       }}
       onMouseMove={handleMouse}
       onMouseEnter={handleMouseEnter}
       onMouseLeave={handleMouseLeave}
+      onTouchStart={handleTouchStart}
+      onTouchEnd={handleTouchEnd}
     >
+      {/* Aviso móvil - solo visible en pantallas pequeñas */}
       {showMobileWarning && (
-        <div className="absolute top-4 text-center text-sm block sm:hidden">
+        <div 
+          className="
+            absolute 
+            top-2
+            sm:top-4 
+            left-1/2 
+            -translate-x-1/2
+            text-center 
+            text-xs
+            sm:text-sm 
+            text-gray-500 
+            dark:text-gray-400
+            bg-white/80 
+            dark:bg-gray-800/80
+            backdrop-blur-sm
+            px-3 
+            py-1.5
+            rounded-full
+            block 
+            sm:hidden
+            whitespace-nowrap
+            shadow-sm
+          "
+        >
           Este efecto se ve mejor en escritorio
         </div>
       )}
+
+      {/* Contenedor de la imagen con tilt */}
       <motion.div
-        className="relative [transform-style:preserve-3d]"
+        className="
+          relative 
+          [transform-style:preserve-3d]
+          w-full
+          max-w-[280px]
+          sm:max-w-[300px]
+          lg:max-w-none
+        "
         style={{
-          width: imageWidth,
-          height: imageHeight,
+          width: imageWidth === '100%' ? '100%' : dimensions.width,
+          height: imageHeight === '100%' ? dimensions.height : imageHeight,
           rotateX,
           rotateY,
           scale
         }}
       >
+        {/* Imagen principal */}
         <motion.img
           src={imageSrc}
           alt={altText}
-          className="absolute top-0 left-0 object-cover rounded-[15px] will-change-transform [transform:translateZ(0)]"
+          className="
+            absolute 
+            top-0 
+            left-0 
+            w-full
+            h-full
+            object-cover 
+            rounded-xl
+            sm:rounded-[15px]
+            will-change-transform 
+            [transform:translateZ(0)]
+            shadow-lg
+            sm:shadow-xl
+          "
           style={{
-            width: imageWidth,
-            height: imageHeight
+            width: '100%',
+            height: '100%'
           }}
+          loading="lazy"
         />
+
+        {/* Overlay content */}
         {displayOverlayContent && overlayContent && (
-          <motion.div className="absolute top-0 left-0 z-[2] will-change-transform [transform:translateZ(30px)]">
+          <motion.div 
+            className="
+              absolute 
+              top-0 
+              left-0 
+              z-[2] 
+              will-change-transform 
+              [transform:translateZ(30px)]
+              w-full
+              h-full
+              p-3
+              sm:p-4
+            "
+          >
             {overlayContent}
           </motion.div>
         )}
       </motion.div>
-      {showTooltip && (
+
+      {/* Tooltip - solo en desktop */}
+      {showTooltip && captionText && (
         <motion.figcaption
-          className="pointer-events-none absolute left-0 top-0 rounded-[4px] bg-white dark:bg-gray-800 px-[10px] py-[4px] text-[10px] text-gray-900 dark:text-white opacity-0 z-[3] hidden sm:block shadow-lg"
+          className="
+            pointer-events-none 
+            absolute 
+            left-0 
+            top-0 
+            rounded
+            sm:rounded-[4px] 
+            bg-white 
+            dark:bg-gray-800 
+            px-2.5
+            sm:px-[10px] 
+            py-1
+            sm:py-[4px] 
+            text-[9px]
+            sm:text-[10px] 
+            text-gray-900 
+            dark:text-white 
+            opacity-0 
+            z-[3] 
+            hidden 
+            sm:block 
+            shadow-lg
+            font-medium
+          "
           style={{
             x,
             y,
@@ -119,6 +292,22 @@ export default function TiltedCard({
         >
           {captionText}
         </motion.figcaption>
+      )}
+
+      {/* Caption alternativo para móvil (sin animación) */}
+      {captionText && (
+        <p 
+          className="
+            mt-3
+            text-xs
+            text-gray-600
+            dark:text-gray-400
+            text-center
+            sm:hidden
+          "
+        >
+          {captionText}
+        </p>
       )}
     </figure>
   );

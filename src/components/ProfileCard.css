@@ -1,4 +1,9 @@
+/* =============================================
+   PROFILE CARD - MOBILE FIRST RESPONSIVE CSS
+   ============================================= */
+
 :root {
+  /* Pointer & Transform Variables */
   --pointer-x: 50%;
   --pointer-y: 50%;
   --pointer-from-center: 0;
@@ -9,12 +14,16 @@
   --rotate-y: 0deg;
   --background-x: 50%;
   --background-y: 50%;
+  
+  /* Visual Effects */
   --grain: none;
   --icon: none;
   --behind-gradient: none;
   --behind-glow-color: rgba(125, 190, 255, 0.67);
   --behind-glow-size: 25%;
   --inner-gradient: none;
+  
+  /* Sun Pillar Colors */
   --sunpillar-1: hsl(252, 26%, 23%);
   --sunpillar-2: hsl(252, 26%, 23%);
   --sunpillar-3: hsl(252, 26%, 23%);
@@ -27,14 +36,39 @@
   --sunpillar-clr-4: var(--sunpillar-4);
   --sunpillar-clr-5: var(--sunpillar-5);
   --sunpillar-clr-6: var(--sunpillar-6);
-  --card-radius: 30px;
+  
+  /* Card Sizing - Mobile First */
+  --card-radius: 1.25rem; /* 20px */
+  --card-height: 55svh;
+  --card-max-height: 320px;
+  --ui-inset: 0.625rem; /* 10px */
+  --ui-radius-bias: 4px;
+  --ui-padding-x: 0.5rem;
+  --ui-padding-y: 0.375rem;
+  --mini-avatar-size: 1.5rem; /* 24px */
+  --handle-font-size: 0.6875rem; /* 11px */
+  --status-font-size: 0.5rem; /* 8px */
+  --btn-padding-x: 0.625rem;
+  --btn-padding-y: 0.3125rem;
+  --btn-font-size: 0.5625rem; /* 9px */
+  --details-top: 1.25rem;
+  --title-font-size: clamp(1.25rem, 3svh, 1.5rem);
+  --subtitle-font-size: 0.6875rem; /* 11px */
 }
+
+/* =============================================
+   BASE STYLES (Mobile First - < 320px)
+   ============================================= */
 
 .pc-card-wrapper {
   perspective: 500px;
   transform: translate3d(0, 0, 0.1px);
   position: relative;
   touch-action: none;
+  width: 100%;
+  max-width: 100%;
+  display: flex;
+  justify-content: center;
 }
 
 .pc-behind {
@@ -58,8 +92,9 @@
 }
 
 .pc-card {
-  height: 80svh;
-  max-height: 540px;
+  height: var(--card-height);
+  max-height: var(--card-max-height);
+  width: 100%;
   display: grid;
   aspect-ratio: 0.718;
   border-radius: var(--card-radius);
@@ -88,6 +123,9 @@
 .pc-card-shell {
   position: relative;
   z-index: 1;
+  width: 100%;
+  display: flex;
+  justify-content: center;
 }
 
 .pc-card * {
@@ -104,6 +142,10 @@
   background-color: rgba(0, 0, 0, 0.9);
   transform: none;
 }
+
+/* =============================================
+   SHINE EFFECTS
+   ============================================= */
 
 .pc-shine {
   mask-image: var(--icon);
@@ -229,6 +271,10 @@
   filter: brightness(0.8) contrast(1.5);
 }
 
+/* =============================================
+   GLARE EFFECT
+   ============================================= */
+
 .pc-glare {
   transform: translate3d(0, 0, 1.1px);
   overflow: hidden;
@@ -241,6 +287,10 @@
   filter: brightness(0.8) contrast(1.2);
   z-index: 4;
 }
+
+/* =============================================
+   AVATAR CONTENT
+   ============================================= */
 
 .pc-avatar-content {
   mix-blend-mode: luminosity;
@@ -271,10 +321,12 @@
   pointer-events: none;
 }
 
+/* =============================================
+   USER INFO PANEL
+   ============================================= */
+
 .pc-user-info {
   position: absolute;
-  --ui-inset: 20px;
-  --ui-radius-bias: 6px;
   bottom: var(--ui-inset);
   left: var(--ui-inset);
   right: var(--ui-inset);
@@ -282,23 +334,26 @@
   display: flex;
   align-items: center;
   justify-content: space-between;
+  gap: 0.5rem;
   background: rgba(255, 255, 255, 0.1);
   backdrop-filter: blur(30px);
   border: 1px solid rgba(255, 255, 255, 0.1);
   border-radius: calc(max(0px, var(--card-radius) - var(--ui-inset) + var(--ui-radius-bias)));
-  padding: 12px 14px;
+  padding: var(--ui-padding-y) var(--ui-padding-x);
   pointer-events: auto;
 }
 
 .pc-user-details {
   display: flex;
   align-items: center;
-  gap: 12px;
+  gap: 0.375rem;
+  min-width: 0;
+  flex: 1;
 }
 
 .pc-mini-avatar {
-  width: 48px;
-  height: 48px;
+  width: var(--mini-avatar-size);
+  height: var(--mini-avatar-size);
   border-radius: 50%;
   overflow: hidden;
   border: 1px solid rgba(255, 255, 255, 0.1);
@@ -316,39 +371,54 @@
   display: flex;
   align-items: flex-start;
   flex-direction: column;
-  gap: 6px;
+  gap: 0.125rem;
+  min-width: 0;
 }
 
 .pc-handle {
-  font-size: 14px;
+  font-size: var(--handle-font-size);
   font-weight: 500;
   color: rgba(255, 255, 255, 0.9);
-  line-height: 1;
+  line-height: 1.2;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  max-width: 100%;
 }
 
 .pc-status {
-  font-size: 14px;
+  font-size: var(--status-font-size);
   color: rgba(255, 255, 255, 0.7);
-  line-height: 1;
+  line-height: 1.2;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  max-width: 100%;
 }
 
 .pc-contact-btn {
   border: 1px solid rgba(255, 255, 255, 0.1);
-  border-radius: 8px;
-  padding: 12px 16px;
-  font-size: 12px;
+  border-radius: 50px;
+  padding: var(--btn-padding-y) var(--btn-padding-x);
+  font-size: var(--btn-font-size);
   font-weight: 600;
   color: rgba(255, 255, 255, 0.9);
   cursor: pointer;
   transition: all 0.2s ease;
   backdrop-filter: blur(10px);
+  white-space: nowrap;
+  flex-shrink: 0;
+  background: transparent;
 }
 
 .pc-contact-btn:hover {
   border-color: rgba(255, 255, 255, 0.4);
   transform: translateY(-1px);
-  transition: all 0.2s ease;
 }
+
+/* =============================================
+   CONTENT & DETAILS
+   ============================================= */
 
 .pc-content:not(.pc-avatar-content) {
   max-height: 100%;
@@ -367,16 +437,16 @@
 .pc-details {
   width: 100%;
   position: absolute;
-  top: 3em;
+  top: var(--details-top);
   display: flex;
   flex-direction: column;
+  padding: 0 0.5rem;
 }
 
 .pc-details h3 {
   font-weight: 600;
   margin: 0;
-  font-size: min(5svh, 3em);
-  margin: 0;
+  font-size: var(--title-font-size);
   background-image: linear-gradient(to bottom, #fff, #6f6fbe);
   background-size: 1em 1.5em;
   -webkit-text-fill-color: transparent;
@@ -387,9 +457,9 @@
 .pc-details p {
   font-weight: 600;
   position: relative;
-  top: -12px;
+  top: -0.375rem;
   white-space: nowrap;
-  font-size: 16px;
+  font-size: var(--subtitle-font-size);
   margin: 0 auto;
   width: min-content;
   background-image: linear-gradient(to bottom, #fff, #4a4ac0);
@@ -399,11 +469,14 @@
   -webkit-background-clip: text;
 }
 
+/* =============================================
+   ANIMATIONS
+   ============================================= */
+
 @keyframes glow-bg {
   0% {
     --bgrotate: 0deg;
   }
-
   100% {
     --bgrotate: 360deg;
   }
@@ -416,7 +489,6 @@
       0 0,
       center;
   }
-
   100% {
     background-position:
       0 var(--background-y),
@@ -425,138 +497,209 @@
   }
 }
 
-@media (max-width: 768px) {
-  .pc-card {
-    height: 70svh;
-    max-height: 450px;
-  }
+/* =============================================
+   BREAKPOINT: Small Mobile (>= 320px)
+   ============================================= */
 
-  .pc-details {
-    top: 2em;
+@media (min-width: 320px) {
+  :root {
+    --card-radius: 1.5rem; /* 24px */
+    --card-height: 55svh;
+    --card-max-height: 340px;
+    --ui-inset: 0.75rem;
+    --ui-padding-x: 0.625rem;
+    --ui-padding-y: 0.5rem;
+    --mini-avatar-size: 1.75rem;
+    --handle-font-size: 0.75rem;
+    --status-font-size: 0.5625rem;
+    --btn-padding-x: 0.75rem;
+    --btn-padding-y: 0.375rem;
+    --btn-font-size: 0.625rem;
+    --details-top: 1.5rem;
+    --title-font-size: clamp(1.5rem, 3.5svh, 1.75rem);
+    --subtitle-font-size: 0.75rem;
   }
-
-  .pc-details h3 {
-    font-size: min(4svh, 2.5em);
-  }
-
-  .pc-details p {
-    font-size: 14px;
-  }
-
-  .pc-user-info {
-    --ui-inset: 15px;
-    padding: 10px 12px;
-  }
-
-  .pc-mini-avatar {
-    width: 28px;
-    height: 28px;
-  }
-
+  
   .pc-user-details {
-    gap: 10px;
+    gap: 0.5rem;
   }
-
-  .pc-handle {
-    font-size: 13px;
-  }
-
-  .pc-status {
-    font-size: 10px;
-  }
-
-  .pc-contact-btn {
-    padding: 6px 12px;
-    font-size: 11px;
+  
+  .pc-user-text {
+    gap: 0.1875rem;
   }
 }
 
-@media (max-width: 480px) {
-  .pc-card {
-    height: 60svh;
-    max-height: 380px;
-  }
+/* =============================================
+   BREAKPOINT: Large Mobile (>= 480px)
+   ============================================= */
 
-  .pc-details {
-    top: 1.5em;
+@media (min-width: 480px) {
+  :root {
+    --card-radius: 1.75rem; /* 28px */
+    --card-height: 60svh;
+    --card-max-height: 400px;
+    --ui-inset: 0.9375rem;
+    --ui-padding-x: 0.75rem;
+    --ui-padding-y: 0.5rem;
+    --mini-avatar-size: 2rem;
+    --handle-font-size: 0.8125rem;
+    --status-font-size: 0.625rem;
+    --btn-padding-x: 0.875rem;
+    --btn-padding-y: 0.4375rem;
+    --btn-font-size: 0.6875rem;
+    --btn-border-radius: 0.5rem;
+    --details-top: 1.75rem;
+    --title-font-size: clamp(1.75rem, 4svh, 2rem);
+    --subtitle-font-size: 0.8125rem;
   }
-
-  .pc-details h3 {
-    font-size: min(3.5svh, 2em);
-  }
-
-  .pc-details p {
-    font-size: 12px;
-    top: -8px;
-  }
-
-  .pc-user-info {
-    --ui-inset: 12px;
-    padding: 8px 10px;
-  }
-
-  .pc-mini-avatar {
-    width: 24px;
-    height: 24px;
-  }
-
-  .pc-user-details {
-    gap: 8px;
-  }
-
-  .pc-handle {
-    font-size: 12px;
-  }
-
-  .pc-status {
-    font-size: 9px;
-  }
-
+  
   .pc-contact-btn {
-    padding: 5px 10px;
-    font-size: 10px;
-    border-radius: 50px;
+    border-radius: 0.5rem;
+  }
+  
+  .pc-user-details {
+    gap: 0.625rem;
+  }
+  
+  .pc-user-text {
+    gap: 0.25rem;
+  }
+  
+  .pc-details p {
+    top: -0.5rem;
   }
 }
 
-@media (max-width: 320px) {
-  .pc-card {
-    height: 55svh;
-    max-height: 320px;
-  }
+/* =============================================
+   BREAKPOINT: Tablet (>= 768px)
+   ============================================= */
 
-  .pc-details h3 {
-    font-size: min(3svh, 1.5em);
+@media (min-width: 768px) {
+  :root {
+    --card-radius: 1.875rem; /* 30px */
+    --card-height: 70svh;
+    --card-max-height: 480px;
+    --ui-inset: 1.125rem;
+    --ui-padding-x: 0.875rem;
+    --ui-padding-y: 0.625rem;
+    --mini-avatar-size: 2.5rem;
+    --handle-font-size: 0.875rem;
+    --status-font-size: 0.6875rem;
+    --btn-padding-x: 1rem;
+    --btn-padding-y: 0.5rem;
+    --btn-font-size: 0.75rem;
+    --details-top: 2rem;
+    --title-font-size: clamp(2rem, 4.5svh, 2.5rem);
+    --subtitle-font-size: 0.875rem;
   }
-
-  .pc-details p {
-    font-size: 11px;
-  }
-
-  .pc-user-info {
-    padding: 6px 8px;
-  }
-
-  .pc-mini-avatar {
-    width: 20px;
-    height: 20px;
-  }
-
+  
   .pc-user-details {
-    gap: 6px;
+    gap: 0.75rem;
   }
-
-  .pc-handle {
-    font-size: 11px;
+  
+  .pc-user-text {
+    gap: 0.375rem;
   }
-
-  .pc-status {
-    font-size: 8px;
+  
+  .pc-details p {
+    top: -0.625rem;
   }
+}
 
+/* =============================================
+   BREAKPOINT: Desktop (>= 1024px)
+   ============================================= */
+
+@media (min-width: 1024px) {
+  :root {
+    --card-radius: 1.875rem; /* 30px */
+    --card-height: 75svh;
+    --card-max-height: 520px;
+    --ui-inset: 1.25rem;
+    --ui-padding-x: 0.875rem;
+    --ui-padding-y: 0.75rem;
+    --mini-avatar-size: 2.75rem;
+    --handle-font-size: 0.875rem;
+    --status-font-size: 0.8125rem;
+    --btn-padding-x: 1rem;
+    --btn-padding-y: 0.625rem;
+    --btn-font-size: 0.75rem;
+    --details-top: 2.5rem;
+    --title-font-size: clamp(2.25rem, 5svh, 3rem);
+    --subtitle-font-size: 1rem;
+  }
+  
+  .pc-user-text {
+    gap: 0.375rem;
+  }
+  
+  .pc-details p {
+    top: -0.75rem;
+  }
+}
+
+/* =============================================
+   BREAKPOINT: Large Desktop (>= 1280px)
+   ============================================= */
+
+@media (min-width: 1280px) {
+  :root {
+    --card-height: 80svh;
+    --card-max-height: 540px;
+    --ui-padding-x: 1rem;
+    --mini-avatar-size: 3rem;
+    --handle-font-size: 0.9375rem;
+    --status-font-size: 0.875rem;
+    --btn-padding-x: 1.125rem;
+    --btn-padding-y: 0.75rem;
+    --details-top: 3rem;
+  }
+}
+
+/* =============================================
+   ACCESSIBILITY & REDUCED MOTION
+   ============================================= */
+
+@media (prefers-reduced-motion: reduce) {
+  .pc-card,
+  .pc-shine,
+  .pc-contact-btn,
+  .pc-avatar-content .avatar {
+    transition: none;
+    animation: none;
+  }
+  
+  .pc-shine {
+    animation-play-state: paused;
+  }
+}
+
+/* =============================================
+   HIGH CONTRAST MODE
+   ============================================= */
+
+@media (prefers-contrast: high) {
+  .pc-user-info {
+    background: rgba(0, 0, 0, 0.8);
+    border-color: rgba(255, 255, 255, 0.5);
+  }
+  
   .pc-contact-btn {
-    padding: 4px 8px;
-    font-size: 9px;
-    border-radius: 50px;
+    border-color: rgba(255, 255, 255, 0.5);
+  }
+}
+
+/* =============================================
+   TOUCH DEVICE OPTIMIZATIONS
+   ============================================= */
+
+@media (hover: none) and (pointer: coarse) {
+  .pc-contact-btn {
+    min-height: 2.75rem;
+    min-width: 5rem;
+  }
+  
+  .pc-user-info {
+    padding: 0.625rem 0.75rem;
   }
 }
