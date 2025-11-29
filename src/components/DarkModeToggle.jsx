@@ -22,13 +22,13 @@ export default function DarkModeToggle() {
   return (
     <button
       onClick={toggleDarkMode}
-      className="fixed top-6 right-6 z-50 p-3 bg-gray-200 dark:bg-gray-800 rounded-full shadow-lg hover:scale-110 transition-transform duration-300"
+      className="fixed top-4 right-4 sm:top-6 sm:right-6 z-50 p-2 sm:p-3 bg-gray-200 dark:bg-gray-800 rounded-full shadow-lg hover:scale-110 transition-transform duration-300"
       aria-label="Toggle dark mode"
     >
       {darkMode ? (
-        <Sun className="w-6 h-6 text-yellow-400" />
+        <Sun className="w-5 h-5 sm:w-6 sm:h-6 text-yellow-400" />
       ) : (
-        <Moon className="w-6 h-6 text-gray-700" />
+        <Moon className="w-5 h-5 sm:w-6 sm:h-6 text-gray-700" />
       )}
     </button>
   );

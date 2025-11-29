@@ -1,5 +1,5 @@
 import { motion } from 'framer-motion';
-import { ArrowRight, Zap, RefreshCw, TrendingUp } from 'lucide-react';
+import { ArrowRight, Zap, RefreshCw } from 'lucide-react';
 import { Link } from 'react-router-dom';
 import { useState, useEffect } from 'react';
 import DarkVeil from './DarkVeil';
@@ -10,16 +10,13 @@ export default function Hero() {
   const [toAmount, setToAmount] = useState('0');
   const [fromCurrency, setFromCurrency] = useState('MXN');
   const [toCurrency, setToCurrency] = useState('USD');
-  const [isLoading, setIsLoading] = useState(false);
   const [conversionRate, setConversionRate] = useState(null);
+  const [isLoading, setIsLoading] = useState(false);
   const [error, setError] = useState(null);
-  const [lastUpdate, setLastUpdate] = useState(null);
 
-  // Conversión automática cuando cambian los valores
   useEffect(() => {
     const convertAmount = async () => {
       const amount = parseFloat(fromAmount);
-      
       if (!fromAmount || amount <= 0 || isNaN(amount)) {
         setToAmount('0');
         setConversionRate(null);
@@ -31,25 +28,22 @@ export default function Hero() {
       setError(null);
 
       try {
-        const result = await convertCurrency(
-          amount,
-          fromCurrency,
-          toCurrency
-        );
-        
+        console.log('Iniciando conversión...');
+        const result = await convertCurrency(amount, fromCurrency, toCurrency);
+        console.log('Resultado:', result);
         setToAmount(result.convertedAmount.toFixed(2));
         setConversionRate(result.conversionRate);
-        setLastUpdate(result.date);
       } catch (err) {
         console.error('Error en conversión:', err);
-        setError('No se pudo conectar con el servidor. Verifica tu internet.');
+        setError('No se pudo convertir. Verifica la API o tu conexión.');
         setToAmount('0');
+        setConversionRate(null);
       } finally {
         setIsLoading(false);
       }
     };
 
-    const debounceTimer = setTimeout(convertAmount, 600);
+    const debounceTimer = setTimeout(convertAmount, 800);
     return () => clearTimeout(debounceTimer);
   }, [fromAmount, fromCurrency, toCurrency]);
 
@@ -61,9 +55,8 @@ export default function Hero() {
 
   const handleManualConvert = async () => {
     const amount = parseFloat(fromAmount);
-    
     if (!fromAmount || amount <= 0 || isNaN(amount)) {
-      setError('Por favor ingresa una cantidad válida mayor a 0');
+      setError('Por favor ingresa una cantidad válida');
       return;
     }
 
@@ -71,19 +64,14 @@ export default function Hero() {
     setError(null);
 
     try {
-      const result = await convertCurrency(
-        amount,
-        fromCurrency,
-        toCurrency
-      );
-      
+      const result = await convertCurrency(amount, fromCurrency, toCurrency);
       setToAmount(result.convertedAmount.toFixed(2));
       setConversionRate(result.conversionRate);
-      setLastUpdate(result.date);
     } catch (err) {
-      console.error('Error:', err);
-      setError('Error al convertir. Por favor intenta de nuevo.');
+      console.error('Error en conversión:', err);
+      setError('No se pudo convertir. Intenta de nuevo.');
       setToAmount('0');
+      setConversionRate(null);
     } finally {
       setIsLoading(false);
     }
@@ -93,13 +81,6 @@ export default function Hero() {
     if (code === 'MXN') return '🇲🇽';
     const currency = POPULAR_CURRENCIES.find(c => c.code === code);
     return currency ? currency.flag : '💰';
-  };
-
-  const formatNumber = (num) => {
-    return new Intl.NumberFormat('es-MX', {
-      minimumFractionDigits: 2,
-      maximumFractionDigits: 2
-    }).format(num);
   };
 
   return (
@@ -122,7 +103,6 @@ export default function Hero() {
       <div className="absolute inset-0 bg-gradient-to-b from-black/30 via-transparent to-black/40 pointer-events-none" />
 
       <div className="relative z-10 max-w-7xl mx-auto grid md:grid-cols-2 gap-12 items-center">
-        
         {/* Texto del Hero */}
         <motion.div
           initial={{ opacity: 0, x: -50 }}
@@ -141,7 +121,7 @@ export default function Hero() {
           </h1>
 
           <p className="text-xl text-gray-200 drop-shadow-lg">
-            Convierte tus pesos mexicanos a cualquier moneda de manera instantánea, segura y sin complicaciones. Tasas de cambio en tiempo real.
+            Convierte tus pesos mexicanos a cualquier moneda de manera instantánea, segura y sin complicaciones. La forma más moderna de manejar tu dinero.
           </p>
 
           <div className="flex flex-col sm:flex-row gap-4 pt-4">
@@ -184,7 +164,7 @@ export default function Hero() {
           </div>
         </motion.div>
 
-        {/* Calculadora de Conversión */}
+        {/* Calculadora de Conversión FUNCIONAL */}
         <motion.div
           initial={{ opacity: 0, x: 50 }}
           animate={{ opacity: 1, x: 0 }}
@@ -196,144 +176,115 @@ export default function Hero() {
             transition={{ duration: 3, repeat: Infinity, ease: "easeInOut" }}
             className="relative z-10"
           >
-            {/* Card de conversión */}
-            <div className="bg-gradient-to-br from-primary/10 to-purple-900/10 backdrop-blur-2xl rounded-3xl shadow-2xl p-8 border border-primary/30">
-              <div className="space-y-6">
-                
-                {/* Título */}
-                <div className="flex items-center justify-between mb-2">
-                  <h3 className="text-lg font-semibold text-white flex items-center gap-2">
-                    <TrendingUp className="w-5 h-5 text-primary" />
-                    Calculadora de Divisas
-                  </h3>
-                  {lastUpdate && (
-                    <span className="text-xs text-gray-500">
-                      Actualizado: {lastUpdate}
-                    </span>
-                  )}
-                </div>
-
-                {/* De (From) */}
-                <div>
-                  <label className="text-sm text-gray-300 mb-2 block font-medium">Cantidad a convertir</label>
-                  <div className="flex gap-3">
-                    <div className="flex-1 flex items-center gap-4 p-4 bg-white/5 rounded-xl border border-white/10 focus-within:border-primary/50 transition-colors">
-                      <span className="text-2xl">🇲🇽</span>
-                      <div className="flex-1">
-                        <input
-                          type="number"
-                          value={fromAmount}
-                          onChange={(e) => setFromAmount(e.target.value)}
-                          className="w-full text-3xl font-bold bg-transparent text-white outline-none [appearance:textfield] [&::-webkit-outer-spin-button]:appearance-none [&::-webkit-inner-spin-button]:appearance-none"
-                          placeholder="0.00"
-                          min="0"
-                          step="0.01"
-                        />
-                        <p className="text-sm text-gray-400 mt-1">MXN - Peso Mexicano</p>
-                      </div>
+            <div className="bg-gradient-to-br from-primary/10 to-purple-900/10 backdrop-blur-2xl rounded-3xl shadow-2xl p-8 border border-primary/30 space-y-6">
+              {/* De (From) */}
+              <div>
+                <label className="text-sm text-gray-300 mb-2 block">De</label>
+                <div className="flex gap-3">
+                  <div className="flex-1 flex items-center gap-4 p-4 bg-white/5 rounded-xl border border-white/10 focus-within:border-primary/50 transition-colors">
+                    <span className="text-2xl">{getCurrencyFlag(fromCurrency)}</span>
+                    <div className="flex-1">
+                      <input
+                        type="number"
+                        value={fromAmount}
+                        onChange={(e) => setFromAmount(e.target.value)}
+                        className="w-full text-3xl font-bold bg-transparent text-white outline-none [appearance:textfield] [&::-webkit-outer-spin-button]:appearance-none [&::-webkit-inner-spin-button]:appearance-none"
+                        placeholder="0"
+                        min="0"
+                        step="0.01"
+                      />
+                      <p className="text-sm text-gray-400">{fromCurrency} - {POPULAR_CURRENCIES.find(c => c.code === fromCurrency)?.name}</p>
                     </div>
                   </div>
                 </div>
+              </div>
 
-                {/* Botón de intercambio */}
-                <div className="flex justify-center">
-                  <motion.button
-                    whileHover={{ scale: 1.1 }}
-                    whileTap={{ scale: 0.9, rotate: 180 }}
-                    onClick={handleSwapCurrencies}
-                    className="p-3 bg-primary rounded-full shadow-lg shadow-primary/50 hover:bg-primary/90 transition-colors disabled:opacity-50 disabled:cursor-not-allowed"
-                    disabled={isLoading}
-                    title="Intercambiar monedas"
-                  >
-                    <RefreshCw className={`w-6 h-6 text-white transition-transform ${isLoading ? 'animate-spin' : ''}`} />
-                  </motion.button>
-                </div>
-
-                {/* A (To) */}
-                <div>
-                  <label className="text-sm text-gray-300 mb-2 block font-medium">Resultado</label>
-                  <div className="flex gap-3">
-                    <div className="flex-1 flex items-center gap-4 p-4 bg-primary/20 rounded-xl border border-primary/40">
-                      <span className="text-2xl">{getCurrencyFlag(toCurrency)}</span>
-                      <div className="flex-1">
-                        <p className="text-3xl font-bold text-primary drop-shadow-[0_0_20px_rgba(99,102,241,0.8)]">
-                          {isLoading ? (
-                            <span className="animate-pulse">...</span>
-                          ) : (
-                            formatNumber(parseFloat(toAmount))
-                          )}
-                        </p>
-                        <select
-                          value={toCurrency}
-                          onChange={(e) => setToCurrency(e.target.value)}
-                          className="text-sm text-gray-400 bg-transparent outline-none cursor-pointer hover:text-primary transition-colors mt-1 w-full"
-                          disabled={isLoading}
-                        >
-                          {POPULAR_CURRENCIES.map(currency => (
-                            <option key={currency.code} value={currency.code} className="bg-gray-900 text-white">
-                              {currency.flag} {currency.code} - {currency.name}
-                            </option>
-                          ))}
-                        </select>
-                      </div>
-                    </div>
-                  </div>
-                </div>
-
-                {/* Tasa de conversión */}
-                {conversionRate && !error && !isLoading && (
-                  <motion.div
-                    initial={{ opacity: 0, y: -10 }}
-                    animate={{ opacity: 1, y: 0 }}
-                    className="text-center text-sm bg-white/5 rounded-lg p-3 border border-white/10"
-                  >
-                    <p className="text-gray-400">
-                      <span className="font-semibold text-primary">1 {fromCurrency}</span> = 
-                      <span className="font-semibold text-white"> {conversionRate.toFixed(4)} {toCurrency}</span>
-                    </p>
-                  </motion.div>
-                )}
-
-                {/* Error */}
-                {error && (
-                  <motion.div
-                    initial={{ opacity: 0, y: -10 }}
-                    animate={{ opacity: 1, y: 0 }}
-                    className="text-center text-sm text-red-400 bg-red-500/10 rounded-lg p-3 border border-red-500/20"
-                  >
-                    <p className="flex items-center justify-center gap-2">
-                      <span>⚠️</span>
-                      <span>{error}</span>
-                    </p>
-                  </motion.div>
-                )}
-
-                {/* Botón de conversión */}
+              {/* Botón de intercambio */}
+              <div className="flex justify-center">
                 <motion.button
-                  whileHover={{ scale: 1.02 }}
-                  whileTap={{ scale: 0.98 }}
-                  onClick={handleManualConvert}
-                  className="w-full py-4 bg-primary text-white rounded-xl font-semibold hover:bg-primary/90 transition-colors shadow-lg shadow-primary/30 flex items-center justify-center gap-2 disabled:opacity-50 disabled:cursor-not-allowed"
+                  whileHover={{ scale: 1.1 }}
+                  whileTap={{ scale: 0.9, rotate: 180 }}
+                  onClick={handleSwapCurrencies}
+                  className="p-3 bg-primary rounded-full shadow-lg shadow-primary/50 hover:bg-primary/90 transition-colors disabled:opacity-50 disabled:cursor-not-allowed"
                   disabled={isLoading}
                 >
-                  {isLoading ? (
-                    <>
-                      <RefreshCw className="w-5 h-5 animate-spin" />
-                      Convirtiendo...
-                    </>
-                  ) : (
-                    <>
-                      <Zap className="w-5 h-5" />
-                      Convertir Ahora
-                    </>
-                  )}
+                  <RefreshCw className={`w-6 h-6 text-white transition-transform ${isLoading ? 'animate-spin' : ''}`} />
                 </motion.button>
-
-                {/* Nota informativa */}
-                <p className="text-xs text-center text-gray-500">
-                  💡 La conversión se actualiza automáticamente mientras escribes
-                </p>
               </div>
+
+              {/* A (To) */}
+              <div>
+                <label className="text-sm text-gray-300 mb-2 block">A</label>
+                <div className="flex gap-3">
+                  <div className="flex-1 flex items-center gap-4 p-4 bg-primary/20 rounded-xl border border-primary/40">
+                    <span className="text-2xl">{getCurrencyFlag(toCurrency)}</span>
+                    <div className="flex-1">
+                      <p className="text-3xl font-bold text-primary drop-shadow-[0_0_20px_rgba(99,102,241,0.8)]">
+                        {isLoading ? <span className="animate-pulse">...</span> : toAmount}
+                      </p>
+                      <select
+                        value={toCurrency}
+                        onChange={(e) => setToCurrency(e.target.value)}
+                        className="text-sm text-gray-400 bg-transparent outline-none cursor-pointer hover:text-primary transition-colors mt-1"
+                        disabled={isLoading}
+                      >
+                        {POPULAR_CURRENCIES.map(currency => (
+                          <option key={currency.code} value={currency.code} className="bg-gray-900 text-white">
+                            {currency.code} - {currency.name}
+                          </option>
+                        ))}
+                      </select>
+                    </div>
+                  </div>
+                </div>
+              </div>
+
+              {/* Tasa de conversión */}
+              {conversionRate && !error && !isLoading && (
+                <motion.div
+                  initial={{ opacity: 0, y: -10 }}
+                  animate={{ opacity: 1, y: 0 }}
+                  className="text-center text-sm text-gray-400 bg-white/5 rounded-lg p-3 border border-white/10"
+                >
+                  <span className="font-semibold">Tasa:</span> 1 {fromCurrency} = {conversionRate.toFixed(4)} {toCurrency}
+                </motion.div>
+              )}
+
+              {/* Error */}
+              {error && (
+                <motion.div
+                  initial={{ opacity: 0, y: -10 }}
+                  animate={{ opacity: 1, y: 0 }}
+                  className="text-center text-sm text-red-400 bg-red-500/10 rounded-lg p-3 border border-red-500/20"
+                >
+                  ⚠️ {error}
+                </motion.div>
+              )}
+
+              {/* Botón de conversión */}
+              <motion.button
+                whileHover={{ scale: 1.02 }}
+                whileTap={{ scale: 0.98 }}
+                onClick={handleManualConvert}
+                className="w-full py-4 bg-primary text-white rounded-xl font-semibold hover:bg-primary/90 transition-colors shadow-lg shadow-primary/30 flex items-center justify-center gap-2 disabled:opacity-50 disabled:cursor-not-allowed"
+                disabled={isLoading}
+              >
+                {isLoading ? (
+                  <>
+                    <RefreshCw className="w-5 h-5 animate-spin" />
+                    Convirtiendo...
+                  </>
+                ) : (
+                  <>
+                    <Zap className="w-5 h-5" />
+                    Convertir Ahora
+                  </>
+                )}
+              </motion.button>
+
+              <p className="text-xs text-center text-gray-500">
+                💡 La conversión se actualiza automáticamente al escribir
+              </p>
             </div>
           </motion.div>
 
