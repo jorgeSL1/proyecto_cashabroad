@@ -270,7 +270,7 @@ npm run dev -- --port 3000
 
 ---
 
-## 🌐 Deploy a Producción
+##  Deploy a Producción
 
 ### Vercel (Recomendado)
 
@@ -309,7 +309,7 @@ npm run deploy
 
 ---
 
-## ✨ Características del Proyecto
+##  Características del Proyecto
 
 - ✅ React 18 + Vite
 - ✅ Tailwind CSS para estilos
@@ -324,7 +324,7 @@ npm run deploy
 
 ---
 
-## 📞 Soporte
+##  Soporte
 
 Si tienes problemas:
 
@@ -335,7 +335,7 @@ Si tienes problemas:
 
 ---
 
-## 🎯 Inicio Rápido (Resumen)
+##  Inicio Rápido (Resumen)
 ```bash
 # 1. Entrar a la carpeta del proyecto
 cd proyecto_cashabroad
@@ -354,5 +354,5 @@ http://localhost:5173
 
 <div align="center">
   <p>Hecho con esfuerzo para CashAbroad</p>
-  <p>Si tienes dudas, revisa la sección de Solución de Problemas ☝️</p>
+  <p>Si tienes dudas, revisa la sección de Solución de Problemas </p>
 </div>
