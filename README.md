@@ -1,10 +1,10 @@
-# 🚀 CashAbroad - Landing Page
+#  CashAbroad - Landing Page
 
 Landing page moderna para CashAbroad, plataforma de conversión de MXN a USDC con efectos visuales avanzados.
 
 ---
 
-## 📋 Requisitos Previos
+## Requisitos Previos
 
 Asegúrate de tener instalado:
 
@@ -19,7 +19,7 @@ npm --version
 
 ---
 
-## 🚀 Instalación Rápida
+##  Instalación Rápida
 
 ### 1. Clonar o descargar el proyecto
 ```bash
@@ -80,7 +80,7 @@ npm run preview
 
 ---
 
-## 🔧 Si las dependencias no se instalan correctamente
+##  Si las dependencias no se instalan correctamente
 
 ### Opción 1: Instalación manual de dependencias principales
 ```bash
