@@ -9,7 +9,7 @@ const testimonials = [
     name: 'María González',
     title: 'Freelancer',
     handle: 'mariagonzalez',
-    status: '⭐ Cliente Premium',
+    status: ' Cliente Premium',
     avatarUrl: 'https://api.dicebear.com/7.x/avataaars/svg?seed=Maria',
     behindGlowColor: 'rgba(99, 102, 241, 0.67)',
     reviewTitle: 'La mejor plataforma para freelancers',
@@ -30,7 +30,7 @@ const testimonials = [
     name: 'Carlos Ramírez',
     title: 'Emprendedor',
     handle: 'carlosramirez',
-    status: '⭐ Usuario Verificado',
+    status: ' Usuario Verificado',
     avatarUrl: 'https://api.dicebear.com/7.x/avataaars/svg?seed=Carlos',
     behindGlowColor: 'rgba(139, 92, 246, 0.67)',
     reviewTitle: 'Perfecta para negocios internacionales',
@@ -51,7 +51,7 @@ const testimonials = [
     name: 'Ana López',
     title: 'Comerciante',
     handle: 'analopez',
-    status: '⭐ Miembro Activo',
+    status: ' Miembro Activo',
     avatarUrl: 'https://api.dicebear.com/7.x/avataaars/svg?seed=Ana',
     behindGlowColor: 'rgba(236, 72, 153, 0.67)',
     reviewTitle: 'Confiable y súper profesional',
@@ -154,7 +154,7 @@ export default function Testimonials() {
               sm:mt-4
             "
           >
-            👆 Toca en ver reseña para leer más
+             Toca en ver reseña para leer más
           </p>
         </motion.div>
 

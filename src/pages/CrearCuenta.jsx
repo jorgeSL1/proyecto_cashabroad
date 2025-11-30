@@ -260,15 +260,15 @@ export default function CrearCuenta() {
             className="mt-8 grid md:grid-cols-3 gap-4"
           >
             <div className="bg-white/80 dark:bg-gray-800/80 backdrop-blur-sm rounded-xl p-4 text-center border border-gray-200/50 dark:border-gray-700/50">
-              <p className="text-2xl mb-1">🔒</p>
+              <p className="text-2xl mb-1"></p>
               <p className="text-sm font-semibold">100% Seguro</p>
             </div>
             <div className="bg-white/80 dark:bg-gray-800/80 backdrop-blur-sm rounded-xl p-4 text-center border border-gray-200/50 dark:border-gray-700/50">
-              <p className="text-2xl mb-1">⚡</p>
+              <p className="text-2xl mb-1"></p>
               <p className="text-sm font-semibold">Registro Rápido</p>
             </div>
             <div className="bg-white/80 dark:bg-gray-800/80 backdrop-blur-sm rounded-xl p-4 text-center border border-gray-200/50 dark:border-gray-700/50">
-              <p className="text-2xl mb-1">🌍</p>
+              <p className="text-2xl mb-1"></p>
               <p className="text-sm font-semibold">Internacional</p>
             </div>
           </motion.div>

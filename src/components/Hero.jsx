@@ -114,7 +114,7 @@ export default function Hero() {
   const getCurrencyFlag = (code) => {
     if (code === 'MXN') return '🇲🇽';
     const currency = POPULAR_CURRENCIES.find(c => c.code === code);
-    return currency ? currency.flag : '💰';
+    return currency ? currency.flag : '';
   };
 
   const formatNumber = (num) => {
@@ -401,7 +401,7 @@ export default function Hero() {
                     className="text-center text-xs sm:text-sm text-red-400 bg-red-500/10 rounded-lg p-2 sm:p-3 border border-red-500/20"
                   >
                     <p className="flex items-center justify-center gap-2">
-                      <span>⚠️</span>
+                      <span></span>
                       <span>{error}</span>
                     </p>
                   </motion.div>
