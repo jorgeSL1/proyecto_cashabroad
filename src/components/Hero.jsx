@@ -1,5 +1,5 @@
-import { motion } from 'framer-motion';
-import { ArrowRight, Zap, RefreshCw, TrendingUp } from 'lucide-react';
+import { motion, AnimatePresence } from 'framer-motion';
+import { ArrowRight, Zap, RefreshCw, TrendingUp, X, Mail, Lock, Eye, EyeOff, LogIn, UserPlus, Info } from 'lucide-react';
 import { Link } from 'react-router-dom';
 import { useState, useEffect } from 'react';
 import DarkVeil from './DarkVeil';
@@ -14,6 +14,13 @@ export default function Hero() {
   const [conversionRate, setConversionRate] = useState(null);
   const [error, setError] = useState(null);
   const [lastUpdate, setLastUpdate] = useState(null);
+
+  // Estados para el modal de login
+  const [isLoginOpen, setIsLoginOpen] = useState(false);
+  const [showPassword, setShowPassword] = useState(false);
+  const [loginEmail, setLoginEmail] = useState('');
+  const [loginPassword, setLoginPassword] = useState('');
+  const [isLoggingIn, setIsLoggingIn] = useState(false);
 
   useEffect(() => {
     const convertAmount = async () => {
@@ -47,6 +54,18 @@ export default function Hero() {
     return () => clearTimeout(debounceTimer);
   }, [fromAmount, fromCurrency, toCurrency]);
 
+  // Bloquear scroll cuando el modal está abierto
+  useEffect(() => {
+    if (isLoginOpen) {
+      document.body.style.overflow = 'hidden';
+    } else {
+      document.body.style.overflow = 'unset';
+    }
+    return () => {
+      document.body.style.overflow = 'unset';
+    };
+  }, [isLoginOpen]);
+
   const handleSwapCurrencies = () => {
     setFromCurrency(toCurrency);
     setToCurrency(fromCurrency);
@@ -76,6 +95,20 @@ export default function Hero() {
     } finally {
       setIsLoading(false);
     }
+  };
+
+  // Función para simular inicio de sesión
+  const handleLogin = (e) => {
+    e.preventDefault();
+    setIsLoggingIn(true);
+    
+    // Simular delay de autenticación
+    setTimeout(() => {
+      setIsLoggingIn(false);
+      setIsLoginOpen(false);
+      setLoginEmail('');
+      setLoginPassword('');
+    }, 2000);
   };
 
   const getCurrencyFlag = (code) => {
@@ -133,24 +166,101 @@ export default function Hero() {
             Convierte tus pesos mexicanos a cualquier moneda de manera instantánea, segura y sin complicaciones.
           </p>
 
-          <div className="flex flex-col sm:flex-row gap-3 sm:gap-4 pt-2 sm:pt-4 justify-center lg:justify-start">
+          {/* Botones de acción - DISEÑO UNIFORME Y ALINEADOS */}
+          <div 
+            className="
+              flex flex-col 
+              gap-3 
+              pt-2 
+              sm:pt-4 
+              items-center
+              lg:items-start
+              sm:flex-row
+              sm:flex-wrap
+              sm:justify-center
+              lg:justify-start
+            "
+          >
+            {/* Botón Iniciar Sesión */}
+            <motion.button
+              whileHover={{ scale: 1.05 }}
+              whileTap={{ scale: 0.95 }}
+              onClick={() => setIsLoginOpen(true)}
+              className="
+                w-full sm:w-auto
+                px-6 py-3
+                bg-white/10 
+                backdrop-blur-lg 
+                border-2 border-white/30 
+                text-white 
+                rounded-full 
+                font-semibold 
+                flex items-center justify-center 
+                gap-2 
+                hover:bg-primary/20 
+                hover:border-primary
+                transition-all 
+                shadow-xl 
+                text-sm
+                sm:text-base
+              "
+            >
+              <LogIn className="w-4 h-4 sm:w-5 sm:h-5" />
+              Iniciar Sesión
+            </motion.button>
+
+            {/* Botón Crear Cuenta */}
             <Link to="/crear-cuenta" className="w-full sm:w-auto">
               <motion.button
                 whileHover={{ scale: 1.05 }}
                 whileTap={{ scale: 0.95 }}
-                className="w-full sm:w-auto px-6 sm:px-8 py-3 sm:py-4 bg-primary text-white rounded-full font-semibold flex items-center justify-center gap-2 hover:bg-primary/90 transition-colors shadow-2xl shadow-primary/50 text-sm sm:text-base"
+                className="
+                  w-full
+                  px-6 py-3
+                  bg-primary 
+                  text-white 
+                  border-2 border-primary
+                  rounded-full 
+                  font-semibold 
+                  flex items-center justify-center 
+                  gap-2 
+                  hover:bg-primary/90 
+                  transition-all 
+                  shadow-2xl shadow-primary/50
+                  text-sm
+                  sm:text-base
+                "
               >
+                <UserPlus className="w-4 h-4 sm:w-5 sm:h-5" />
                 Crear Cuenta
-                <ArrowRight className="w-4 h-4 sm:w-5 sm:h-5" />
               </motion.button>
             </Link>
 
+            {/* Botón Más Información */}
             <Link to="/mas-informacion" className="w-full sm:w-auto">
               <motion.button
                 whileHover={{ scale: 1.05 }}
                 whileTap={{ scale: 0.95 }}
-                className="w-full sm:w-auto px-6 sm:px-8 py-3 sm:py-4 bg-white/20 backdrop-blur-lg border-2 border-white/30 text-white rounded-full font-semibold hover:border-primary hover:bg-primary/20 transition-all shadow-xl text-sm sm:text-base"
+                className="
+                  w-full
+                  px-6 py-3
+                  bg-white/10 
+                  backdrop-blur-lg 
+                  border-2 border-white/30 
+                  text-white 
+                  rounded-full 
+                  font-semibold 
+                  flex items-center justify-center 
+                  gap-2 
+                  hover:border-primary 
+                  hover:bg-primary/20
+                  transition-all 
+                  shadow-xl
+                  text-sm
+                  sm:text-base
+                "
               >
+                <Info className="w-4 h-4 sm:w-5 sm:h-5" />
                 Más Información
               </motion.button>
             </Link>
@@ -317,11 +427,6 @@ export default function Hero() {
                     </>
                   )}
                 </motion.button>
-
-                {/* Nota informativa */}
-                <p className="text-[10px] sm:text-xs text-center text-gray-500">
-                  
-                </p>
               </div>
             </div>
           </motion.div>
@@ -339,6 +444,320 @@ export default function Hero() {
           />
         </motion.div>
       </div>
+
+      {/* ============================================= */}
+      {/* MODAL DE INICIO DE SESIÓN - CENTRADO Y RESPONSIVE */}
+      {/* ============================================= */}
+      <AnimatePresence>
+        {isLoginOpen && (
+          <>
+            {/* Backdrop oscuro */}
+            <motion.div
+              initial={{ opacity: 0 }}
+              animate={{ opacity: 1 }}
+              exit={{ opacity: 0 }}
+              transition={{ duration: 0.3 }}
+              onClick={() => setIsLoginOpen(false)}
+              className="fixed inset-0 bg-black/70 backdrop-blur-sm z-50"
+            />
+
+            {/* Contenedor del Modal - Centrado con Flexbox */}
+            <div 
+              className="
+                fixed inset-0 z-50 
+                flex items-center justify-center 
+                p-4 sm:p-6 md:p-8
+              "
+            >
+              <motion.div
+                initial={{ opacity: 0, scale: 0.9, y: 30 }}
+                animate={{ opacity: 1, scale: 1, y: 0 }}
+                exit={{ opacity: 0, scale: 0.9, y: 30 }}
+                transition={{ 
+                  type: "spring",
+                  damping: 30,
+                  stiffness: 400
+                }}
+                onClick={(e) => e.stopPropagation()}
+                className="
+                  w-full 
+                  max-w-[400px]
+                  sm:max-w-[420px]
+                  md:max-w-[450px]
+                "
+              >
+                {/* Card del Modal */}
+                <div 
+                  className="
+                    bg-gradient-to-br from-gray-900 via-gray-800 to-gray-900
+                    rounded-2xl
+                    sm:rounded-3xl
+                    p-5
+                    sm:p-6
+                    md:p-8
+                    border border-primary/30
+                    shadow-2xl
+                    shadow-primary/20
+                    relative
+                    overflow-hidden
+                  "
+                >
+                  {/* Efectos de fondo decorativos */}
+                  <div className="absolute top-0 right-0 w-32 h-32 bg-primary/20 rounded-full blur-3xl pointer-events-none" />
+                  <div className="absolute bottom-0 left-0 w-24 h-24 bg-purple-500/20 rounded-full blur-3xl pointer-events-none" />
+
+                  {/* Contenido del modal */}
+                  <div className="relative z-10">
+                    
+                    {/* Header */}
+                    <div className="flex items-start justify-between mb-5 sm:mb-6">
+                      <div>
+                        <h2 className="text-lg sm:text-xl md:text-2xl font-bold text-white">
+                          Bienvenido de vuelta
+                        </h2>
+                        <p className="text-xs sm:text-sm text-gray-400 mt-1">
+                          Ingresa a tu cuenta de CashAbroad
+                        </p>
+                      </div>
+                      <motion.button
+                        whileHover={{ scale: 1.1, rotate: 90 }}
+                        whileTap={{ scale: 0.9 }}
+                        onClick={() => setIsLoginOpen(false)}
+                        className="
+                          p-2
+                          bg-white/10
+                          rounded-full
+                          text-gray-400
+                          hover:text-white
+                          hover:bg-white/20
+                          transition-colors
+                          flex-shrink-0
+                          ml-3
+                        "
+                      >
+                        <X className="w-4 h-4 sm:w-5 sm:h-5" />
+                      </motion.button>
+                    </div>
+
+                    {/* Formulario */}
+                    <form onSubmit={handleLogin} className="space-y-4">
+                      
+                      {/* Campo Email */}
+                      <div>
+                        <label className="text-xs sm:text-sm text-gray-300 mb-1.5 block font-medium">
+                          Correo electrónico
+                        </label>
+                        <div 
+                          className="
+                            flex items-center 
+                            gap-3 
+                            p-3 sm:p-3.5
+                            bg-white/5 
+                            rounded-xl 
+                            border border-white/10 
+                            focus-within:border-primary/50 
+                            transition-colors
+                          "
+                        >
+                          <Mail className="w-4 h-4 sm:w-5 sm:h-5 text-gray-400 flex-shrink-0" />
+                          <input
+                            type="email"
+                            value={loginEmail}
+                            onChange={(e) => setLoginEmail(e.target.value)}
+                            placeholder="tu@email.com"
+                            required
+                            className="
+                              w-full 
+                              bg-transparent 
+                              text-white 
+                              text-sm
+                              outline-none 
+                              placeholder-gray-500
+                            "
+                          />
+                        </div>
+                      </div>
+
+                      {/* Campo Contraseña */}
+                      <div>
+                        <label className="text-xs sm:text-sm text-gray-300 mb-1.5 block font-medium">
+                          Contraseña
+                        </label>
+                        <div 
+                          className="
+                            flex items-center 
+                            gap-3 
+                            p-3 sm:p-3.5
+                            bg-white/5 
+                            rounded-xl 
+                            border border-white/10 
+                            focus-within:border-primary/50 
+                            transition-colors
+                          "
+                        >
+                          <Lock className="w-4 h-4 sm:w-5 sm:h-5 text-gray-400 flex-shrink-0" />
+                          <input
+                            type={showPassword ? "text" : "password"}
+                            value={loginPassword}
+                            onChange={(e) => setLoginPassword(e.target.value)}
+                            placeholder="••••••••"
+                            required
+                            className="
+                              w-full 
+                              bg-transparent 
+                              text-white 
+                              text-sm
+                              outline-none 
+                              placeholder-gray-500
+                            "
+                          />
+                          <motion.button
+                            type="button"
+                            whileHover={{ scale: 1.1 }}
+                            whileTap={{ scale: 0.9 }}
+                            onClick={() => setShowPassword(!showPassword)}
+                            className="text-gray-400 hover:text-white transition-colors flex-shrink-0"
+                          >
+                            {showPassword ? (
+                              <EyeOff className="w-4 h-4 sm:w-5 sm:h-5" />
+                            ) : (
+                              <Eye className="w-4 h-4 sm:w-5 sm:h-5" />
+                            )}
+                          </motion.button>
+                        </div>
+                      </div>
+
+                      {/* Olvidé contraseña */}
+                      <div className="flex justify-end">
+                        <button
+                          type="button"
+                          className="
+                            text-xs sm:text-sm 
+                            text-primary 
+                            hover:text-primary/80 
+                            transition-colors
+                          "
+                        >
+                          ¿Olvidaste tu contraseña?
+                        </button>
+                      </div>
+
+                      {/* Botón de Iniciar Sesión */}
+                      <motion.button
+                        type="submit"
+                        whileHover={{ scale: 1.02 }}
+                        whileTap={{ scale: 0.98 }}
+                        disabled={isLoggingIn}
+                        className="
+                          w-full 
+                          py-3 sm:py-3.5
+                          bg-primary 
+                          text-white 
+                          rounded-xl 
+                          font-semibold 
+                          text-sm
+                          hover:bg-primary/90 
+                          transition-colors 
+                          shadow-lg shadow-primary/30 
+                          flex items-center justify-center 
+                          gap-2
+                          disabled:opacity-50
+                          disabled:cursor-not-allowed
+                        "
+                      >
+                        {isLoggingIn ? (
+                          <>
+                            <RefreshCw className="w-4 h-4 sm:w-5 sm:h-5 animate-spin" />
+                            Iniciando sesión...
+                          </>
+                        ) : (
+                          <>
+                            <LogIn className="w-4 h-4 sm:w-5 sm:h-5" />
+                            Iniciar Sesión
+                          </>
+                        )}
+                      </motion.button>
+                    </form>
+
+                    {/* Divider */}
+                    <div className="flex items-center gap-3 my-5">
+                      <div className="flex-1 h-px bg-white/10" />
+                      <span className="text-xs text-gray-500">o continúa con</span>
+                      <div className="flex-1 h-px bg-white/10" />
+                    </div>
+
+                    {/* Botones sociales */}
+                    <div className="grid grid-cols-2 gap-3">
+                      <motion.button
+                        whileHover={{ scale: 1.03 }}
+                        whileTap={{ scale: 0.97 }}
+                        type="button"
+                        className="
+                          py-2.5
+                          bg-white/5 
+                          border border-white/10 
+                          rounded-xl 
+                          text-white 
+                          text-xs sm:text-sm
+                          font-medium
+                          hover:bg-white/10 
+                          transition-colors
+                          flex items-center justify-center
+                          gap-2
+                        "
+                      >
+                        <svg className="w-4 h-4 sm:w-5 sm:h-5" viewBox="0 0 24 24">
+                          <path fill="currentColor" d="M22.56 12.25c0-.78-.07-1.53-.2-2.25H12v4.26h5.92c-.26 1.37-1.04 2.53-2.21 3.31v2.77h3.57c2.08-1.92 3.28-4.74 3.28-8.09z"/>
+                          <path fill="currentColor" d="M12 23c2.97 0 5.46-.98 7.28-2.66l-3.57-2.77c-.98.66-2.23 1.06-3.71 1.06-2.86 0-5.29-1.93-6.16-4.53H2.18v2.84C3.99 20.53 7.7 23 12 23z"/>
+                          <path fill="currentColor" d="M5.84 14.09c-.22-.66-.35-1.36-.35-2.09s.13-1.43.35-2.09V7.07H2.18C1.43 8.55 1 10.22 1 12s.43 3.45 1.18 4.93l2.85-2.22.81-.62z"/>
+                          <path fill="currentColor" d="M12 5.38c1.62 0 3.06.56 4.21 1.64l3.15-3.15C17.45 2.09 14.97 1 12 1 7.7 1 3.99 3.47 2.18 7.07l3.66 2.84c.87-2.6 3.3-4.53 6.16-4.53z"/>
+                        </svg>
+                        Google
+                      </motion.button>
+
+                      <motion.button
+                        whileHover={{ scale: 1.03 }}
+                        whileTap={{ scale: 0.97 }}
+                        type="button"
+                        className="
+                          py-2.5
+                          bg-white/5 
+                          border border-white/10 
+                          rounded-xl 
+                          text-white 
+                          text-xs sm:text-sm
+                          font-medium
+                          hover:bg-white/10 
+                          transition-colors
+                          flex items-center justify-center
+                          gap-2
+                        "
+                      >
+                        <svg className="w-4 h-4 sm:w-5 sm:h-5" fill="currentColor" viewBox="0 0 24 24">
+                          <path d="M12 2C6.477 2 2 6.477 2 12c0 4.42 2.865 8.166 6.839 9.489.5.092.682-.217.682-.482 0-.237-.008-.866-.013-1.7-2.782.604-3.369-1.341-3.369-1.341-.454-1.155-1.11-1.462-1.11-1.462-.908-.62.069-.608.069-.608 1.003.07 1.531 1.03 1.531 1.03.892 1.529 2.341 1.087 2.91.831.092-.646.35-1.086.636-1.336-2.22-.253-4.555-1.11-4.555-4.943 0-1.091.39-1.984 1.029-2.683-.103-.253-.446-1.27.098-2.647 0 0 .84-.269 2.75 1.025A9.578 9.578 0 0112 6.836c.85.004 1.705.114 2.504.336 1.909-1.294 2.747-1.025 2.747-1.025.546 1.377.203 2.394.1 2.647.64.699 1.028 1.592 1.028 2.683 0 3.842-2.339 4.687-4.566 4.935.359.309.678.919.678 1.852 0 1.336-.012 2.415-.012 2.743 0 .267.18.578.688.48C19.138 20.163 22 16.418 22 12c0-5.523-4.477-10-10-10z"/>
+                        </svg>
+                        GitHub
+                      </motion.button>
+                    </div>
+
+                    {/* Link a registro */}
+                    <p className="text-center text-xs sm:text-sm text-gray-400 mt-5">
+                      ¿No tienes cuenta?{' '}
+                      <Link 
+                        to="/crear-cuenta" 
+                        onClick={() => setIsLoginOpen(false)}
+                        className="text-primary hover:text-primary/80 font-medium transition-colors"
+                      >
+                        Crear cuenta gratis
+                      </Link>
+                    </p>
+                  </div>
+                </div>
+              </motion.div>
+            </div>
+          </>
+        )}
+      </AnimatePresence>
     </section>
   );
 }
