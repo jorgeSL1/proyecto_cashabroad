@@ -2,7 +2,7 @@
 
 Landing page moderna para CashAbroad, plataforma de conversión de MXN a Divisas con efectos visuales avanzados.
 
-antes de correr el proyecto en cualquier navegador, es necesario tener la  aceleración de gráficos activado, por defecto todos los
+antes de correr el proyecto en cualquier navegador, es necesario tener la  aceleración de gráficos activada, por defecto todos los
 navegadores lo tienen activado, pero en caso de tenerlo desactivado la pagina no correra de manera fluida, por eso recomiendo activarla. 
 
    
