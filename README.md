@@ -23,7 +23,6 @@ npm --version
 
 ##  Instalación Rápida
 
-
 ### 1. Clonar o descargar el proyecto
 ```bash
 # Si tienes Git
@@ -199,7 +198,7 @@ export default {
 ```
 proyecto_cashabroad/
 ├── src/
-│   ├── components/          # Componentes reutilizables
+│   ├── components/          
 │   │   ├── DarkModeToggle.jsx
 │   │   ├── Hero.jsx
 │   │   ├── Benefits.jsx
@@ -212,9 +211,11 @@ proyecto_cashabroad/
 │   │   ├── DarkVeil.jsx + .css
 │   │   ├── ColorBends.jsx
 │   │   └── ReviewModal.jsx
-│   ├── pages/               # Páginas
+│   ├── pages/               
 │   │   ├── CrearCuenta.jsx
 │   │   └── MasInformacion.jsx
+│   ├── service/
+│   │   └── exchangeRate.js
 │   ├── App.jsx
 │   ├── main.jsx
 │   └── index.css
