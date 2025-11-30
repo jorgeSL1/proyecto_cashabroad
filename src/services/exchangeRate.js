@@ -22,7 +22,7 @@ export const getExchangeRates = async (baseCurrency = 'MXN') => {
  
 export const convertCurrency = async (amount, from = 'MXN', to = 'USD') => {
   try {
-    console.log('🔄 Convirtiendo:', { amount, from, to });
+    console.log(' Convirtiendo:', { amount, from, to });
     
     
     const response = await fetch(`${BASE_URL}/${from}`);
@@ -32,7 +32,7 @@ export const convertCurrency = async (amount, from = 'MXN', to = 'USD') => {
     }
     
     const data = await response.json();
-    console.log('✅ Datos recibidos:', data);
+    console.log(' Datos recibidos:', data);
     
     
     if (!data.rates[to]) {
@@ -42,7 +42,7 @@ export const convertCurrency = async (amount, from = 'MXN', to = 'USD') => {
     const rate = data.rates[to];
     const convertedAmount = amount * rate;
     
-    console.log('💰 Resultado:', {
+    console.log(' Resultado:', {
       rate,
       convertedAmount,
       from,
@@ -58,7 +58,7 @@ export const convertCurrency = async (amount, from = 'MXN', to = 'USD') => {
       date: data.date
     };
   } catch (error) {
-    console.error('❌ Error en convertCurrency:', error);
+    console.error(' Error en convertCurrency:', error);
     throw error;
   }
 };

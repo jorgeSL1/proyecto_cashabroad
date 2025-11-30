@@ -23,10 +23,11 @@ npm --version
 
 ##  Instalación Rápida
 
+
 ### 1. Clonar o descargar el proyecto
 ```bash
 # Si tienes Git
-git clone https://github.com/tu-usuario/proyecto_cashabroad.git
+git clone https://github.com/jorgeSL1/proyecto_cashabroad.git
 cd proyecto_cashabroad
 
 # O descarga el ZIP y extrae la carpeta
