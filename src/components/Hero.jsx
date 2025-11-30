@@ -320,7 +320,7 @@ export default function Hero() {
 
                 {/* Nota informativa */}
                 <p className="text-[10px] sm:text-xs text-center text-gray-500">
-                  💡 La conversión se actualiza automáticamente
+                  
                 </p>
               </div>
             </div>
