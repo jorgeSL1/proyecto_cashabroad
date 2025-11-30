@@ -11,26 +11,26 @@ export default function TiltedCard({
   imageSrc,
   altText = 'Tilted card image',
   captionText = '',
-  // Nuevos props responsive - mobile first
+  
   containerHeight = 'auto',
   containerWidth = '100%',
   imageHeight = '100%',
   imageWidth = '100%',
-  // Props para tamaños específicos (opcionales)
+  
   mobileHeight = '250px',
   tabletHeight = '280px',
   desktopHeight = '300px',
   mobileWidth = '100%',
   tabletWidth = '300px',
   desktopWidth = '300px',
-  // Comportamiento
+  
   scaleOnHover = 1.1,
   rotateAmplitude = 14,
   showMobileWarning = false,
   showTooltip = true,
   overlayContent = null,
   displayOverlayContent = false,
-  // Nuevo: deshabilitar efecto en móvil para mejor UX táctil
+  
   disableTiltOnMobile = true
 }) {
   const ref = useRef(null);
@@ -53,27 +53,27 @@ export default function TiltedCard({
   });
   const [lastY, setLastY] = useState(0);
 
-  // Detectar tamaño de pantalla y ajustar dimensiones
+  
   useEffect(() => {
     function handleResize() {
       const width = window.innerWidth;
       
       if (width < 640) {
-        // Mobile
+       
         setIsMobile(true);
         setDimensions({
           width: mobileWidth,
           height: mobileHeight
         });
       } else if (width < 1024) {
-        // Tablet
+        
         setIsMobile(false);
         setDimensions({
           width: tabletWidth,
           height: tabletHeight
         });
       } else {
-        // Desktop
+        
         setIsMobile(false);
         setDimensions({
           width: desktopWidth,
@@ -88,7 +88,7 @@ export default function TiltedCard({
   }, [mobileWidth, mobileHeight, tabletWidth, tabletHeight, desktopWidth, desktopHeight]);
 
   function handleMouse(e) {
-    // Deshabilitar tilt en móvil si está configurado
+    
     if (isMobile && disableTiltOnMobile) return;
     if (!ref.current) return;
 
@@ -122,10 +122,10 @@ export default function TiltedCard({
     rotateFigcaption.set(0);
   }
 
-  // Touch handlers para móvil
+  
   function handleTouchStart() {
     if (!disableTiltOnMobile) {
-      scale.set(scaleOnHover * 0.98); // Escala más sutil en touch
+      scale.set(scaleOnHover * 0.98);
     }
   }
 
@@ -162,7 +162,7 @@ export default function TiltedCard({
       onTouchStart={handleTouchStart}
       onTouchEnd={handleTouchEnd}
     >
-      {/* Aviso móvil - solo visible en pantallas pequeñas */}
+      {}
       {showMobileWarning && (
         <div 
           className="
@@ -192,7 +192,7 @@ export default function TiltedCard({
         </div>
       )}
 
-      {/* Contenedor de la imagen con tilt */}
+      {}
       <motion.div
         className="
           relative 
@@ -210,7 +210,7 @@ export default function TiltedCard({
           scale
         }}
       >
-        {/* Imagen principal */}
+        {}
         <motion.img
           src={imageSrc}
           alt={altText}
@@ -235,7 +235,7 @@ export default function TiltedCard({
           loading="lazy"
         />
 
-        {/* Overlay content */}
+        {}
         {displayOverlayContent && overlayContent && (
           <motion.div 
             className="
@@ -256,7 +256,7 @@ export default function TiltedCard({
         )}
       </motion.div>
 
-      {/* Tooltip - solo en desktop */}
+      {}
       {showTooltip && captionText && (
         <motion.figcaption
           className="
@@ -294,7 +294,7 @@ export default function TiltedCard({
         </motion.figcaption>
       )}
 
-      {/* Caption alternativo para móvil (sin animación) */}
+      {}
       {captionText && (
         <p 
           className="

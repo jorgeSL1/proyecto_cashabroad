@@ -15,7 +15,7 @@ export default function Hero() {
   const [error, setError] = useState(null);
   const [lastUpdate, setLastUpdate] = useState(null);
 
-  // Estados para el modal de login
+  
   const [isLoginOpen, setIsLoginOpen] = useState(false);
   const [showPassword, setShowPassword] = useState(false);
   const [loginEmail, setLoginEmail] = useState('');
@@ -54,7 +54,7 @@ export default function Hero() {
     return () => clearTimeout(debounceTimer);
   }, [fromAmount, fromCurrency, toCurrency]);
 
-  // Bloquear scroll cuando el modal está abierto
+  
   useEffect(() => {
     if (isLoginOpen) {
       document.body.style.overflow = 'hidden';
@@ -97,12 +97,12 @@ export default function Hero() {
     }
   };
 
-  // Función para simular inicio de sesión
+  
   const handleLogin = (e) => {
     e.preventDefault();
     setIsLoggingIn(true);
     
-    // Simular delay de autenticación
+    
     setTimeout(() => {
       setIsLoggingIn(false);
       setIsLoginOpen(false);
@@ -126,7 +126,7 @@ export default function Hero() {
 
   return (
     <section className="relative min-h-screen flex items-center justify-center px-4 sm:px-6 py-12 sm:py-20 overflow-hidden bg-gradient-to-br from-gray-900 via-indigo-950 to-gray-900">
-      {/* DarkVeil Background */}
+      {}
       <div className="absolute inset-0 opacity-70">
         <DarkVeil
           hueShift={180}
@@ -139,13 +139,13 @@ export default function Hero() {
         />
       </div>
 
-      {/* Overlay gradient */}
+      {}
       <div className="absolute inset-0 bg-gradient-to-br from-primary/20 via-purple-900/20 to-pink-900/20 pointer-events-none mix-blend-overlay" />
       <div className="absolute inset-0 bg-gradient-to-b from-black/30 via-transparent to-black/40 pointer-events-none" />
 
       <div className="relative z-10 max-w-7xl mx-auto grid grid-cols-1 lg:grid-cols-2 gap-8 lg:gap-12 items-center w-full">
         
-        {/* Texto del Hero */}
+        {}
         <motion.div
           initial={{ opacity: 0, x: -50 }}
           animate={{ opacity: 1, x: 0 }}
@@ -166,7 +166,7 @@ export default function Hero() {
             Convierte tus pesos mexicanos a cualquier moneda de manera instantánea, segura y sin complicaciones.
           </p>
 
-          {/* Botones de acción - DISEÑO UNIFORME Y ALINEADOS */}
+          {}
           <div 
             className="
               flex flex-col 
@@ -181,7 +181,7 @@ export default function Hero() {
               lg:justify-start
             "
           >
-            {/* Botón Iniciar Sesión */}
+            {}
             <motion.button
               whileHover={{ scale: 1.05 }}
               whileTap={{ scale: 0.95 }}
@@ -209,7 +209,7 @@ export default function Hero() {
               Iniciar Sesión
             </motion.button>
 
-            {/* Botón Crear Cuenta */}
+            {}
             <Link to="/crear-cuenta" className="w-full sm:w-auto">
               <motion.button
                 whileHover={{ scale: 1.05 }}
@@ -236,7 +236,7 @@ export default function Hero() {
               </motion.button>
             </Link>
 
-            {/* Botón Más Información */}
+            {}
             <Link to="/mas-informacion" className="w-full sm:w-auto">
               <motion.button
                 whileHover={{ scale: 1.05 }}
@@ -266,7 +266,7 @@ export default function Hero() {
             </Link>
           </div>
 
-          {/* Stats */}
+          {}
           <div className="grid grid-cols-3 gap-3 sm:gap-6 pt-6 sm:pt-8">
             <div className="bg-gradient-to-br from-primary/20 to-purple-900/20 backdrop-blur-xl rounded-lg sm:rounded-xl p-3 sm:p-4 border border-primary/30 shadow-xl">
               <p className="text-xl sm:text-2xl lg:text-3xl font-bold text-primary drop-shadow-[0_0_20px_rgba(99,102,241,0.8)]">$2M+</p>
@@ -283,7 +283,7 @@ export default function Hero() {
           </div>
         </motion.div>
 
-        {/* Calculadora de Conversión */}
+        {}
         <motion.div
           initial={{ opacity: 0, x: 50 }}
           animate={{ opacity: 1, x: 0 }}
@@ -295,11 +295,11 @@ export default function Hero() {
             transition={{ duration: 3, repeat: Infinity, ease: "easeInOut" }}
             className="relative z-10"
           >
-            {/* Card de conversión */}
+            {}
             <div className="bg-gradient-to-br from-primary/10 to-purple-900/10 backdrop-blur-2xl rounded-2xl sm:rounded-3xl shadow-2xl p-4 sm:p-6 lg:p-8 border border-primary/30">
               <div className="space-y-4 sm:space-y-6">
                 
-                {/* Título */}
+                {}
                 <div className="flex items-center justify-between mb-2">
                   <h3 className="text-base sm:text-lg font-semibold text-white flex items-center gap-2">
                     <TrendingUp className="w-4 h-4 sm:w-5 sm:h-5 text-primary" />
@@ -312,7 +312,7 @@ export default function Hero() {
                   )}
                 </div>
 
-                {/* De (From) */}
+                {}
                 <div>
                   <label className="text-xs sm:text-sm text-gray-300 mb-1.5 sm:mb-2 block font-medium">Cantidad a convertir</label>
                   <div className="flex gap-2 sm:gap-3">
@@ -334,7 +334,7 @@ export default function Hero() {
                   </div>
                 </div>
 
-                {/* Botón de intercambio */}
+                {}
                 <div className="flex justify-center">
                   <motion.button
                     whileHover={{ scale: 1.1 }}
@@ -348,7 +348,7 @@ export default function Hero() {
                   </motion.button>
                 </div>
 
-                {/* A (To) */}
+                {}
                 <div>
                   <label className="text-xs sm:text-sm text-gray-300 mb-1.5 sm:mb-2 block font-medium">Resultado</label>
                   <div className="flex gap-2 sm:gap-3">
@@ -379,7 +379,7 @@ export default function Hero() {
                   </div>
                 </div>
 
-                {/* Tasa de conversión */}
+                {}
                 {conversionRate && !error && !isLoading && (
                   <motion.div
                     initial={{ opacity: 0, y: -10 }}
@@ -393,7 +393,7 @@ export default function Hero() {
                   </motion.div>
                 )}
 
-                {/* Error */}
+                {}
                 {error && (
                   <motion.div
                     initial={{ opacity: 0, y: -10 }}
@@ -407,7 +407,7 @@ export default function Hero() {
                   </motion.div>
                 )}
 
-                {/* Botón de conversión */}
+                {}
                 <motion.button
                   whileHover={{ scale: 1.02 }}
                   whileTap={{ scale: 0.98 }}
@@ -431,7 +431,7 @@ export default function Hero() {
             </div>
           </motion.div>
 
-          {/* Elementos decorativos - ocultos en móvil */}
+          {}
           <motion.div
             animate={{ rotate: 360 }}
             transition={{ duration: 20, repeat: Infinity, ease: "linear" }}
@@ -445,13 +445,13 @@ export default function Hero() {
         </motion.div>
       </div>
 
-      {/* ============================================= */}
-      {/* MODAL DE INICIO DE SESIÓN - CENTRADO Y RESPONSIVE */}
-      {/* ============================================= */}
+      {}
+      {}
+      {}
       <AnimatePresence>
         {isLoginOpen && (
           <>
-            {/* Backdrop oscuro */}
+            {}
             <motion.div
               initial={{ opacity: 0 }}
               animate={{ opacity: 1 }}
@@ -461,7 +461,7 @@ export default function Hero() {
               className="fixed inset-0 bg-black/70 backdrop-blur-sm z-50"
             />
 
-            {/* Contenedor del Modal - Centrado con Flexbox */}
+            {}
             <div 
               className="
                 fixed inset-0 z-50 
@@ -486,7 +486,7 @@ export default function Hero() {
                   md:max-w-[450px]
                 "
               >
-                {/* Card del Modal */}
+                {}
                 <div 
                   className="
                     bg-gradient-to-br from-gray-900 via-gray-800 to-gray-900
@@ -502,14 +502,14 @@ export default function Hero() {
                     overflow-hidden
                   "
                 >
-                  {/* Efectos de fondo decorativos */}
+                  {}
                   <div className="absolute top-0 right-0 w-32 h-32 bg-primary/20 rounded-full blur-3xl pointer-events-none" />
                   <div className="absolute bottom-0 left-0 w-24 h-24 bg-purple-500/20 rounded-full blur-3xl pointer-events-none" />
 
-                  {/* Contenido del modal */}
+                  {}
                   <div className="relative z-10">
                     
-                    {/* Header */}
+                    {}
                     <div className="flex items-start justify-between mb-5 sm:mb-6">
                       <div>
                         <h2 className="text-lg sm:text-xl md:text-2xl font-bold text-white">
@@ -539,10 +539,10 @@ export default function Hero() {
                       </motion.button>
                     </div>
 
-                    {/* Formulario */}
+                    {}
                     <form onSubmit={handleLogin} className="space-y-4">
                       
-                      {/* Campo Email */}
+                      {}
                       <div>
                         <label className="text-xs sm:text-sm text-gray-300 mb-1.5 block font-medium">
                           Correo electrónico
@@ -578,7 +578,7 @@ export default function Hero() {
                         </div>
                       </div>
 
-                      {/* Campo Contraseña */}
+                      {}
                       <div>
                         <label className="text-xs sm:text-sm text-gray-300 mb-1.5 block font-medium">
                           Contraseña
@@ -627,7 +627,7 @@ export default function Hero() {
                         </div>
                       </div>
 
-                      {/* Olvidé contraseña */}
+                      {}
                       <div className="flex justify-end">
                         <button
                           type="button"
@@ -642,7 +642,7 @@ export default function Hero() {
                         </button>
                       </div>
 
-                      {/* Botón de Iniciar Sesión */}
+                      {}
                       <motion.button
                         type="submit"
                         whileHover={{ scale: 1.02 }}
@@ -679,14 +679,14 @@ export default function Hero() {
                       </motion.button>
                     </form>
 
-                    {/* Divider */}
+                    {}
                     <div className="flex items-center gap-3 my-5">
                       <div className="flex-1 h-px bg-white/10" />
                       <span className="text-xs text-gray-500">o continúa con</span>
                       <div className="flex-1 h-px bg-white/10" />
                     </div>
 
-                    {/* Botones sociales */}
+                    {}
                     <div className="grid grid-cols-2 gap-3">
                       <motion.button
                         whileHover={{ scale: 1.03 }}
@@ -740,7 +740,7 @@ export default function Hero() {
                       </motion.button>
                     </div>
 
-                    {/* Link a registro */}
+                    {}
                     <p className="text-center text-xs sm:text-sm text-gray-400 mt-5">
                       ¿No tienes cuenta?{' '}
                       <Link 

@@ -1,9 +1,7 @@
-// API gratuita sin necesidad de API Key
+
 const BASE_URL = 'https://api.exchangerate-api.com/v4/latest';
 
-/**
- * Obtiene las tasas de cambio para una moneda base
- */
+
 export const getExchangeRates = async (baseCurrency = 'MXN') => {
   try {
     const response = await fetch(`${BASE_URL}/${baseCurrency}`);
@@ -20,14 +18,13 @@ export const getExchangeRates = async (baseCurrency = 'MXN') => {
   }
 };
 
-/**
- * Convierte una cantidad de una moneda a otra
- */
+
+ 
 export const convertCurrency = async (amount, from = 'MXN', to = 'USD') => {
   try {
     console.log('🔄 Convirtiendo:', { amount, from, to });
     
-    // Obtener tasas de cambio desde la moneda origen
+    
     const response = await fetch(`${BASE_URL}/${from}`);
     
     if (!response.ok) {
@@ -37,7 +34,7 @@ export const convertCurrency = async (amount, from = 'MXN', to = 'USD') => {
     const data = await response.json();
     console.log('✅ Datos recibidos:', data);
     
-    // Verificar que existe la tasa para la moneda destino
+    
     if (!data.rates[to]) {
       throw new Error(`Moneda ${to} no encontrada`);
     }
@@ -66,7 +63,7 @@ export const convertCurrency = async (amount, from = 'MXN', to = 'USD') => {
   }
 };
 
-// Lista de monedas populares
+
 export const POPULAR_CURRENCIES = [
   { code: 'USD', name: 'Dólar Estadounidense', symbol: '$', flag: '🇺🇸' },
   { code: 'EUR', name: 'Euro', symbol: '€', flag: '🇪🇺' },

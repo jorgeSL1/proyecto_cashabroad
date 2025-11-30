@@ -15,7 +15,7 @@ const clamp = (v, min = 0, max = 100) => Math.min(Math.max(v, min), max);
 const round = (v, precision = 3) => parseFloat(v.toFixed(precision));
 const adjust = (v, fMin, fMax, tMin, tMax) => round(tMin + ((tMax - tMin) * (v - fMin)) / (fMax - fMin));
 
-// Hook para detectar si es dispositivo táctil
+
 const useIsTouchDevice = () => {
   return useMemo(() => {
     if (typeof window === 'undefined') return false;
@@ -160,7 +160,7 @@ const ProfileCardComponent = ({
 
   const getOffsets = (evt, el) => {
     const rect = el.getBoundingClientRect();
-    // Soporte para eventos táctiles
+    
     if (evt.touches && evt.touches.length > 0) {
       return { 
         x: evt.touches[0].clientX - rect.left, 
@@ -240,7 +240,7 @@ const ProfileCardComponent = ({
     [tiltEngine, mobileTiltSensitivity]
   );
 
-  // Manejador para eventos táctiles
+  
   const handleTouchMove = useCallback(
     event => {
       if (!enableMobileTilt) return;
@@ -271,7 +271,7 @@ const ProfileCardComponent = ({
 
     tiltEngine.toCenter();
     
-    // Pequeño delay antes de remover la clase active
+    
     setTimeout(() => {
       shell.classList.remove('active');
     }, 300);
@@ -291,12 +291,12 @@ const ProfileCardComponent = ({
     const touchStartHandler = handleTouchStart;
     const touchEndHandler = handleTouchEnd;
 
-    // Eventos de puntero para desktop
+    
     shell.addEventListener('pointerenter', pointerEnterHandler);
     shell.addEventListener('pointermove', pointerMoveHandler);
     shell.addEventListener('pointerleave', pointerLeaveHandler);
 
-    // Eventos táctiles para móvil
+    
     if (isTouchDevice) {
       shell.addEventListener('touchstart', touchStartHandler, { passive: true });
       shell.addEventListener('touchmove', touchMoveHandler, { passive: true });

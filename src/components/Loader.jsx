@@ -24,7 +24,7 @@ export default function Loader({ onLoadComplete }) {
           transition={{ duration: 0.4, ease: "easeOut" }}
           className="fixed inset-0 z-[9999] flex items-center justify-center bg-black px-4"
         >
-          {/* Logo */}
+          {}
           <motion.h1
             initial={{ opacity: 0, y: 10 }}
             animate={{ opacity: 1, y: 0 }}

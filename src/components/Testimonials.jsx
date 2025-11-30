@@ -97,7 +97,7 @@ export default function Testimonials() {
     >
       <div className="max-w-7xl mx-auto w-full">
         
-        {/* Header - Mobile First */}
+        {}
         <motion.div
           initial={{ opacity: 0, y: 20 }}
           whileInView={{ opacity: 1, y: 0 }}
@@ -111,7 +111,7 @@ export default function Testimonials() {
             px-2
           "
         >
-          {/* Título - escala progresiva mobile-first */}
+          {}
           <h2 
             className="
               text-2xl leading-tight
@@ -127,7 +127,7 @@ export default function Testimonials() {
             Nuestros <span className="text-primary">usuarios</span>
           </h2>
           
-          {/* Subtítulo */}
+          {}
           <p 
             className="
               text-sm leading-relaxed
@@ -144,7 +144,7 @@ export default function Testimonials() {
             Miles de personas confían en CashAbroad para sus transacciones
           </p>
           
-          {/* Hint de interacción */}
+          {}
           <p 
             className="
               text-xs
@@ -158,7 +158,7 @@ export default function Testimonials() {
           </p>
         </motion.div>
 
-        {/* Grid de ProfileCards - Mobile First */}
+        {}
         <div 
           className="
             grid 
@@ -187,7 +187,7 @@ export default function Testimonials() {
               viewport={{ once: true, margin: "-30px" }}
               transition={{ 
                 duration: 0.5, 
-                delay: index * 0.1 // Reducido para móvil
+                delay: index * 0.1 
               }}
               className="
                 cursor-pointer 
@@ -204,7 +204,7 @@ export default function Testimonials() {
                 contactText="Ver Reseña"
                 showUserInfo={true}
                 enableTilt={true}
-                enableMobileTilt={false} // Deshabilitado en móvil para mejor UX táctil
+                enableMobileTilt={false} 
                 behindGlowEnabled={true}
                 behindGlowColor={testimonial.behindGlowColor}
                 onContactClick={() => handleCardClick(testimonial)}
@@ -214,7 +214,7 @@ export default function Testimonials() {
         </div>
       </div>
 
-      {/* Modal de Reseña */}
+      {}
       <ReviewModal
         isOpen={isModalOpen}
         onClose={closeModal}

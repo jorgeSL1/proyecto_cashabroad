@@ -1,9 +1,7 @@
-/* =============================================
-   PROFILE CARD - MOBILE FIRST RESPONSIVE CSS
-   ============================================= */
+
 
 :root {
-  /* Pointer & Transform Variables */
+  
   --pointer-x: 50%;
   --pointer-y: 50%;
   --pointer-from-center: 0;
@@ -15,7 +13,7 @@
   --background-x: 50%;
   --background-y: 50%;
   
-  /* Visual Effects */
+ 
   --grain: none;
   --icon: none;
   --behind-gradient: none;
@@ -23,7 +21,7 @@
   --behind-glow-size: 25%;
   --inner-gradient: none;
   
-  /* Sun Pillar Colors */
+ 
   --sunpillar-1: hsl(252, 26%, 23%);
   --sunpillar-2: hsl(252, 26%, 23%);
   --sunpillar-3: hsl(252, 26%, 23%);
@@ -37,28 +35,26 @@
   --sunpillar-clr-5: var(--sunpillar-5);
   --sunpillar-clr-6: var(--sunpillar-6);
   
-  /* Card Sizing - Mobile First */
-  --card-radius: 1.25rem; /* 20px */
+  
+  --card-radius: 1.25rem; 
   --card-height: 55svh;
   --card-max-height: 320px;
-  --ui-inset: 0.625rem; /* 10px */
+  --ui-inset: 0.625rem; 
   --ui-radius-bias: 4px;
   --ui-padding-x: 0.5rem;
   --ui-padding-y: 0.375rem;
-  --mini-avatar-size: 1.5rem; /* 24px */
-  --handle-font-size: 0.6875rem; /* 11px */
-  --status-font-size: 0.5rem; /* 8px */
+  --mini-avatar-size: 1.5rem; 
+  --handle-font-size: 0.6875rem; 
+  --status-font-size: 0.5rem; 
   --btn-padding-x: 0.625rem;
   --btn-padding-y: 0.3125rem;
-  --btn-font-size: 0.5625rem; /* 9px */
+  --btn-font-size: 0.5625rem; 
   --details-top: 1.25rem;
   --title-font-size: clamp(1.25rem, 3svh, 1.5rem);
-  --subtitle-font-size: 0.6875rem; /* 11px */
+  --subtitle-font-size: 0.6875rem; 
 }
 
-/* =============================================
-   BASE STYLES (Mobile First - < 320px)
-   ============================================= */
+
 
 .pc-card-wrapper {
   perspective: 500px;
@@ -143,9 +139,7 @@
   transform: none;
 }
 
-/* =============================================
-   SHINE EFFECTS
-   ============================================= */
+
 
 .pc-shine {
   mask-image: var(--icon);
@@ -271,9 +265,7 @@
   filter: brightness(0.8) contrast(1.5);
 }
 
-/* =============================================
-   GLARE EFFECT
-   ============================================= */
+
 
 .pc-glare {
   transform: translate3d(0, 0, 1.1px);
@@ -288,9 +280,7 @@
   z-index: 4;
 }
 
-/* =============================================
-   AVATAR CONTENT
-   ============================================= */
+
 
 .pc-avatar-content {
   mix-blend-mode: luminosity;
@@ -321,9 +311,6 @@
   pointer-events: none;
 }
 
-/* =============================================
-   USER INFO PANEL
-   ============================================= */
 
 .pc-user-info {
   position: absolute;
@@ -416,9 +403,7 @@
   transform: translateY(-1px);
 }
 
-/* =============================================
-   CONTENT & DETAILS
-   ============================================= */
+
 
 .pc-content:not(.pc-avatar-content) {
   max-height: 100%;
@@ -469,9 +454,7 @@
   -webkit-background-clip: text;
 }
 
-/* =============================================
-   ANIMATIONS
-   ============================================= */
+
 
 @keyframes glow-bg {
   0% {
@@ -497,13 +480,11 @@
   }
 }
 
-/* =============================================
-   BREAKPOINT: Small Mobile (>= 320px)
-   ============================================= */
+
 
 @media (min-width: 320px) {
   :root {
-    --card-radius: 1.5rem; /* 24px */
+    --card-radius: 1.5rem; 
     --card-height: 55svh;
     --card-max-height: 340px;
     --ui-inset: 0.75rem;
@@ -529,13 +510,11 @@
   }
 }
 
-/* =============================================
-   BREAKPOINT: Large Mobile (>= 480px)
-   ============================================= */
+
 
 @media (min-width: 480px) {
   :root {
-    --card-radius: 1.75rem; /* 28px */
+    --card-radius: 1.75rem; 
     --card-height: 60svh;
     --card-max-height: 400px;
     --ui-inset: 0.9375rem;
@@ -570,13 +549,11 @@
   }
 }
 
-/* =============================================
-   BREAKPOINT: Tablet (>= 768px)
-   ============================================= */
+
 
 @media (min-width: 768px) {
   :root {
-    --card-radius: 1.875rem; /* 30px */
+    --card-radius: 1.875rem; 
     --card-height: 70svh;
     --card-max-height: 480px;
     --ui-inset: 1.125rem;
@@ -606,13 +583,11 @@
   }
 }
 
-/* =============================================
-   BREAKPOINT: Desktop (>= 1024px)
-   ============================================= */
+
 
 @media (min-width: 1024px) {
   :root {
-    --card-radius: 1.875rem; /* 30px */
+    --card-radius: 1.875rem; 
     --card-height: 75svh;
     --card-max-height: 520px;
     --ui-inset: 1.25rem;
@@ -638,9 +613,7 @@
   }
 }
 
-/* =============================================
-   BREAKPOINT: Large Desktop (>= 1280px)
-   ============================================= */
+
 
 @media (min-width: 1280px) {
   :root {
@@ -656,9 +629,7 @@
   }
 }
 
-/* =============================================
-   ACCESSIBILITY & REDUCED MOTION
-   ============================================= */
+
 
 @media (prefers-reduced-motion: reduce) {
   .pc-card,
@@ -674,9 +645,7 @@
   }
 }
 
-/* =============================================
-   HIGH CONTRAST MODE
-   ============================================= */
+
 
 @media (prefers-contrast: high) {
   .pc-user-info {
@@ -689,9 +658,7 @@
   }
 }
 
-/* =============================================
-   TOUCH DEVICE OPTIMIZATIONS
-   ============================================= */
+
 
 @media (hover: none) and (pointer: coarse) {
   .pc-contact-btn {

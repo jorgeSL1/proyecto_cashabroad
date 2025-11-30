@@ -8,7 +8,7 @@ export default {
   theme: {
     extend: {
       colors: {
-        primary: '#6366F1',  // Tu color primary
+        primary: '#6366F1',  // primary C
         secondary: '#1A1A1A',
       },
       animation: {

@@ -29,7 +29,6 @@ export default function Demo() {
     >
       <div className="max-w-7xl mx-auto">
         
-        {/* Header */}
         <motion.div
           initial={{ opacity: 0, y: 20 }}
           whileInView={{ opacity: 1, y: 0 }}
@@ -70,7 +69,6 @@ export default function Demo() {
           </p>
         </motion.div>
 
-        {/* Tab Navigation */}
         <div 
           className="
             flex justify-center 
@@ -108,7 +106,6 @@ export default function Demo() {
             >
               <tab.icon className="w-4 h-4 sm:w-5 sm:h-5" />
               <span className="hidden xs:inline sm:inline">{tab.label}</span>
-              {/* Mobile: show abbreviated label */}
               <span className="xs:hidden sm:hidden">
                 {tab.id === 'transactions' ? 'Trans.' : tab.label}
               </span>
@@ -116,7 +113,6 @@ export default function Demo() {
           ))}
         </div>
 
-        {/* Tab Content Container */}
         <motion.div
           key={activeTab}
           initial={{ opacity: 0, y: 20 }}
@@ -134,10 +130,8 @@ export default function Demo() {
             lg:p-8
           "
         >
-          {/* Dashboard Tab */}
           {activeTab === 'dashboard' && (
             <div className="space-y-6 sm:space-y-8">
-              {/* Balance Card */}
               <div 
                 className="
                   bg-gradient-to-br from-primary to-teal-600 
@@ -169,7 +163,6 @@ export default function Demo() {
                 </div>
               </div>
 
-              {/* Action Buttons Grid */}
               <div 
                 className="
                   grid 
@@ -180,7 +173,6 @@ export default function Demo() {
                   lg:gap-6
                 "
               >
-                {/* Enviar */}
                 <motion.button
                   whileHover={{ scale: 1.03 }}
                   whileTap={{ scale: 0.98 }}
@@ -222,7 +214,6 @@ export default function Demo() {
                   </div>
                 </motion.button>
 
-                {/* Recibir */}
                 <motion.button
                   whileHover={{ scale: 1.03 }}
                   whileTap={{ scale: 0.98 }}
@@ -264,7 +255,6 @@ export default function Demo() {
                   </div>
                 </motion.button>
 
-                {/* Convertir */}
                 <motion.button
                   whileHover={{ scale: 1.03 }}
                   whileTap={{ scale: 0.98 }}
@@ -309,7 +299,6 @@ export default function Demo() {
             </div>
           )}
 
-          {/* Transactions Tab */}
           {activeTab === 'transactions' && (
             <div className="space-y-3 sm:space-y-4">
               <h3 
@@ -341,7 +330,6 @@ export default function Demo() {
                     sm:rounded-xl
                   "
                 >
-                  {/* Left side: Icon + Info */}
                   <div className="flex items-center gap-3 sm:gap-4">
                     <div 
                       className="
@@ -365,7 +353,6 @@ export default function Demo() {
                     </div>
                   </div>
 
-                  {/* Right side: Amount + Status */}
                   <div className="text-right">
                     <p 
                       className="
@@ -396,7 +383,6 @@ export default function Demo() {
             </div>
           )}
 
-          {/* Cards Tab */}
           {activeTab === 'cards' && (
             <div className="space-y-6 sm:space-y-8">
               <h3 
@@ -420,7 +406,6 @@ export default function Demo() {
                   sm:gap-6
                 "
               >
-                {/* Virtual Card */}
                 <motion.div
                   whileHover={{ scale: 1.02, rotateY: 5 }}
                   className="
@@ -436,7 +421,6 @@ export default function Demo() {
                   "
                   style={{ perspective: '1000px' }}
                 >
-                  {/* Glow effect */}
                   <div 
                     className="
                       absolute top-0 right-0 
@@ -480,7 +464,6 @@ export default function Demo() {
                   </div>
                 </motion.div>
 
-                {/* Physical Card */}
                 <motion.div
                   whileHover={{ scale: 1.02, rotateY: 5 }}
                   className="
@@ -496,7 +479,6 @@ export default function Demo() {
                   "
                   style={{ perspective: '1000px' }}
                 >
-                  {/* Glow effect */}
                   <div 
                     className="
                       absolute top-0 right-0 

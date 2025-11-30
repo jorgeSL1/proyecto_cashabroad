@@ -85,7 +85,7 @@ export default function MasInformacion() {
     <div className="min-h-screen relative overflow-hidden">
       <DarkModeToggle />
       
-      {/* ColorBends Background */}
+      {}
       <div className="absolute inset-0 opacity-60 dark:opacity-70">
         <ColorBends
           colors={["#6366F1", "#8B5CF6", "#EC4899"]}
@@ -101,13 +101,13 @@ export default function MasInformacion() {
         />
       </div>
 
-      {/* Overlay */}
+      {}
       <div className="absolute inset-0 bg-gradient-to-b from-white/40 via-white/50 to-white/60 dark:from-gray-900/40 dark:via-gray-900/50 dark:to-gray-900/60 pointer-events-none" />
 
-      {/* Contenido */}
+      {}
       <div className="relative z-10">
         
-        {/* Hero Section */}
+        {}
         <div 
           className="
             px-4 py-12
@@ -117,7 +117,7 @@ export default function MasInformacion() {
         >
           <div className="max-w-7xl mx-auto">
             
-            {/* Botón Volver */}
+            {}
             <motion.div
               initial={{ opacity: 0, x: -20 }}
               animate={{ opacity: 1, x: 0 }}
@@ -148,7 +148,7 @@ export default function MasInformacion() {
               </Link>
             </motion.div>
 
-            {/* Header */}
+            {}
             <motion.div
               initial={{ opacity: 0, y: 30 }}
               animate={{ opacity: 1, y: 0 }}
@@ -190,7 +190,7 @@ export default function MasInformacion() {
               </p>
             </motion.div>
 
-            {/* Stats */}
+            {}
             <motion.div
               initial={{ opacity: 0, y: 20 }}
               animate={{ opacity: 1, y: 0 }}
@@ -249,7 +249,7 @@ export default function MasInformacion() {
           </div>
         </div>
 
-        {/* Features Section */}
+        {}
         <div 
           className="
             px-4 py-12
@@ -297,7 +297,7 @@ export default function MasInformacion() {
               </p>
             </motion.div>
 
-            {/* Features Grid */}
+            {}
             <div 
               className="
                 grid 
@@ -332,7 +332,7 @@ export default function MasInformacion() {
                       lg:p-8
                     "
                   >
-                    {/* Icon */}
+                    {}
                     <div 
                       className="
                         bg-primary/10 
@@ -350,7 +350,7 @@ export default function MasInformacion() {
                       <Icon className="w-5 h-5 text-primary sm:w-6 sm:h-6 lg:w-7 lg:h-7" />
                     </div>
 
-                    {/* Title */}
+                    {}
                     <h3 
                       className="
                         text-lg font-bold 
@@ -363,7 +363,7 @@ export default function MasInformacion() {
                       {feature.title}
                     </h3>
 
-                    {/* Description */}
+                    {}
                     <p 
                       className="
                         text-sm text-gray-600 dark:text-gray-300 
@@ -377,7 +377,7 @@ export default function MasInformacion() {
                       {feature.description}
                     </p>
 
-                    {/* Details List */}
+                    {}
                     <ul className="space-y-1.5 sm:space-y-2">
                       {feature.details.map((detail, i) => (
                         <li 
@@ -401,7 +401,7 @@ export default function MasInformacion() {
           </div>
         </div>
 
-        {/* CTA Section */}
+        {}
         <div 
           className="
             px-4 py-12
@@ -428,7 +428,7 @@ export default function MasInformacion() {
               lg:shadow-2xl
             "
           >
-            {/* Icon */}
+            {}
             <Award 
               className="
                 w-10 h-10 
@@ -441,7 +441,7 @@ export default function MasInformacion() {
               " 
             />
 
-            {/* Title */}
+            {}
             <h2 
               className="
                 text-2xl font-bold 
@@ -454,7 +454,7 @@ export default function MasInformacion() {
               ¿Listo para empezar?
             </h2>
 
-            {/* Description */}
+            {}
             <p 
               className="
                 text-sm 
@@ -471,7 +471,7 @@ export default function MasInformacion() {
               Únete a miles de usuarios que ya están transformando su forma de manejar dinero
             </p>
 
-            {/* CTA Buttons */}
+            {}
             <div 
               className="
                 flex flex-col 

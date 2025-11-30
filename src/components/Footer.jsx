@@ -39,7 +39,6 @@ const socialLinks = [
 export default function Footer() {
   return (
     <footer className="relative bg-gray-900 text-gray-300 overflow-hidden">
-      {/* Background Effect */}
       <div className="absolute inset-0 opacity-20">
         <ColorBends
           colors={["#1F2937", "#4B5563", "#6366F1"]}
@@ -55,10 +54,8 @@ export default function Footer() {
         />
       </div>
 
-      {/* Gradient Overlay */}
       <div className="absolute inset-0 bg-gradient-to-t from-gray-900 via-gray-900/95 to-gray-900/90 pointer-events-none" />
 
-      {/* Newsletter Section */}
       <div className="relative border-b border-gray-800">
         <div 
           className="
@@ -80,7 +77,6 @@ export default function Footer() {
               sm:px-0
             "
           >
-            {/* Newsletter Title */}
             <h3 
               className="
                 text-2xl font-bold text-white 
@@ -92,7 +88,6 @@ export default function Footer() {
               Mantente actualizado
             </h3>
 
-            {/* Newsletter Description */}
             <p 
               className="
                 text-sm text-gray-400 
@@ -105,7 +100,6 @@ export default function Footer() {
               Recibe las últimas noticias y actualizaciones directamente en tu correo
             </p>
 
-            {/* Newsletter Form */}
             <div 
               className="
                 flex flex-col 
@@ -166,7 +160,6 @@ export default function Footer() {
         </div>
       </div>
 
-      {/* Main Footer Content */}
       <div 
         className="
           relative max-w-7xl mx-auto 
@@ -175,7 +168,6 @@ export default function Footer() {
           lg:px-8 lg:py-16
         "
       >
-        {/* Links Grid */}
         <div 
           className="
             grid 
@@ -189,7 +181,6 @@ export default function Footer() {
             lg:mb-12
           "
         >
-          {/* Brand Column - Full width on mobile */}
           <div 
             className="
               col-span-2
@@ -205,7 +196,6 @@ export default function Footer() {
               viewport={{ once: true }}
               transition={{ duration: 0.6 }}
             >
-              {/* Logo */}
               <h2 
                 className="
                   text-xl font-bold text-white 
@@ -217,7 +207,6 @@ export default function Footer() {
                 Cash<span className="text-primary">Abroad</span>
               </h2>
 
-              {/* Tagline */}
               <p 
                 className="
                   text-sm text-gray-400 
@@ -231,7 +220,6 @@ export default function Footer() {
                 La forma más moderna y segura de convertir tus pesos mexicanos a USDC.
               </p>
 
-              {/* Contact Info */}
               <div 
                 className="
                   space-y-2
@@ -270,7 +258,6 @@ export default function Footer() {
             </motion.div>
           </div>
 
-          {/* Product Links */}
           <motion.div
             initial={{ opacity: 0, y: 20 }}
             whileInView={{ opacity: 1, y: 0 }}
@@ -309,7 +296,6 @@ export default function Footer() {
             </ul>
           </motion.div>
 
-          {/* Company Links */}
           <motion.div
             initial={{ opacity: 0, y: 20 }}
             whileInView={{ opacity: 1, y: 0 }}
@@ -348,7 +334,6 @@ export default function Footer() {
             </ul>
           </motion.div>
 
-          {/* Support Links */}
           <motion.div
             initial={{ opacity: 0, y: 20 }}
             whileInView={{ opacity: 1, y: 0 }}
@@ -387,7 +372,6 @@ export default function Footer() {
             </ul>
           </motion.div>
 
-          {/* Legal Links */}
           <motion.div
             initial={{ opacity: 0, y: 20 }}
             whileInView={{ opacity: 1, y: 0 }}
@@ -427,7 +411,6 @@ export default function Footer() {
           </motion.div>
         </div>
 
-        {/* Bottom Bar */}
         <motion.div
           initial={{ opacity: 0 }}
           whileInView={{ opacity: 1 }}
@@ -445,7 +428,6 @@ export default function Footer() {
             sm:justify-between
           "
         >
-          {/* Copyright */}
           <p 
             className="
               text-xs text-gray-500
@@ -459,7 +441,6 @@ export default function Footer() {
             © {new Date().getFullYear()} CashAbroad. Todos los derechos reservados.
           </p>
 
-          {/* Social Links */}
           <div 
             className="
               flex gap-3

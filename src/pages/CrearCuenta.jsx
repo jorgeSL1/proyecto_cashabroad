@@ -18,7 +18,7 @@ export default function CrearCuenta() {
   const handleSubmit = (e) => {
     e.preventDefault();
     console.log('Form submitted:', formData);
-    // Aquí iría la lógica de registro
+    
   };
 
   const handleChange = (e) => {
@@ -32,7 +32,7 @@ export default function CrearCuenta() {
     <div className="min-h-screen relative overflow-hidden">
       <DarkModeToggle />
       
-      {/* ColorBends Background */}
+      {}
       <div className="absolute inset-0 opacity-60 dark:opacity-70">
         <ColorBends
           colors={["#6366F1", "#EC4899", "#8B5CF6"]}
@@ -48,14 +48,14 @@ export default function CrearCuenta() {
         />
       </div>
 
-      {/* Overlay */}
+      {}
       <div className="absolute inset-0 bg-gradient-to-b from-white/40 via-white/50 to-white/60 dark:from-gray-900/40 dark:via-gray-900/50 dark:to-gray-900/60 pointer-events-none" />
 
-      {/* Contenido */}
+      {}
       <div className="relative z-10 min-h-screen flex items-center justify-center px-6 py-20">
         <div className="max-w-2xl w-full">
           
-          {/* Botón Volver */}
+          {}
           <motion.div
             initial={{ opacity: 0, x: -20 }}
             animate={{ opacity: 1, x: 0 }}
@@ -71,14 +71,14 @@ export default function CrearCuenta() {
             </Link>
           </motion.div>
 
-          {/* Card de Registro */}
+          {}
           <motion.div
             initial={{ opacity: 0, y: 30 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.6, delay: 0.2 }}
             className="bg-white dark:bg-gray-800 backdrop-blur-xl rounded-3xl shadow-2xl p-8 md:p-12 border border-gray-200/80 dark:border-gray-700/80"
           >
-            {/* Header */}
+            {}
             <div className="text-center mb-8">
               <h1 className="text-4xl md:text-5xl font-bold mb-4">
                 Crear <span className="text-primary">Cuenta</span>
@@ -88,10 +88,10 @@ export default function CrearCuenta() {
               </p>
             </div>
 
-            {/* Formulario */}
+            {}
             <form onSubmit={handleSubmit} className="space-y-6">
               
-              {/* Nombre Completo */}
+              {}
               <div>
                 <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">
                   Nombre Completo
@@ -110,7 +110,7 @@ export default function CrearCuenta() {
                 </div>
               </div>
 
-              {/* Email */}
+              {}
               <div>
                 <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">
                   Correo Electrónico
@@ -129,7 +129,7 @@ export default function CrearCuenta() {
                 </div>
               </div>
 
-              {/* Teléfono */}
+              {}
               <div>
                 <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">
                   Teléfono
@@ -148,7 +148,7 @@ export default function CrearCuenta() {
                 </div>
               </div>
 
-              {/* País */}
+              {}
               <div>
                 <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">
                   País
@@ -172,7 +172,7 @@ export default function CrearCuenta() {
                 </div>
               </div>
 
-              {/* Contraseña */}
+              {}
               <div>
                 <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">
                   Contraseña
@@ -191,7 +191,7 @@ export default function CrearCuenta() {
                 </div>
               </div>
 
-              {/* Confirmar Contraseña */}
+              {}
               <div>
                 <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">
                   Confirmar Contraseña
@@ -210,7 +210,7 @@ export default function CrearCuenta() {
                 </div>
               </div>
 
-              {/* Términos y Condiciones */}
+              {}
               <div className="flex items-start gap-3">
                 <input
                   type="checkbox"
@@ -230,7 +230,7 @@ export default function CrearCuenta() {
                 </label>
               </div>
 
-              {/* Botón Submit */}
+              {}
               <motion.button
                 whileHover={{ scale: 1.02 }}
                 whileTap={{ scale: 0.98 }}
@@ -241,7 +241,7 @@ export default function CrearCuenta() {
               </motion.button>
             </form>
 
-            {/* Footer */}
+            {}
             <div className="mt-8 text-center">
               <p className="text-gray-600 dark:text-gray-400">
                 ¿Ya tienes cuenta?{' '}
@@ -252,7 +252,7 @@ export default function CrearCuenta() {
             </div>
           </motion.div>
 
-          {/* Beneficios */}
+          {}
           <motion.div
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}

@@ -86,7 +86,6 @@ export default function Benefits() {
                 viewport={{ once: true }}
                 transition={{ duration: 0.5, delay: index * 0.1 }}
               >
-                {/* Versión móvil - Card simple */}
                 <div className="block sm:hidden">
                   <div className={`bg-gradient-to-br ${benefit.gradient} rounded-2xl p-6 text-white h-full`}>
                     <div className="bg-white/20 backdrop-blur-sm p-4 rounded-xl mb-4 w-fit">
@@ -97,7 +96,6 @@ export default function Benefits() {
                   </div>
                 </div>
 
-                {/* Versión desktop - TiltedCard */}
                 <div className="hidden sm:block">
                   <TiltedCard
                     imageSrc={`data:image/svg+xml,%3Csvg width='400' height='350' xmlns='http://www.w3.org/2000/svg'%3E%3Cdefs%3E%3ClinearGradient id='grad${benefit.id}' x1='0%25' y1='0%25' x2='100%25' y2='100%25'%3E%3Cstop offset='0%25' style='stop-color:%23${benefit.gradient.includes('yellow') ? 'FBBF24' : benefit.gradient.includes('blue') ? '60A5FA' : benefit.gradient.includes('green') ? '34D399' : benefit.gradient.includes('purple') ? 'A78BFA' : benefit.gradient.includes('indigo') ? '818CF8' : 'F472B6'};stop-opacity:1' /%3E%3Cstop offset='100%25' style='stop-color:%23${benefit.gradient.includes('orange') ? 'F97316' : benefit.gradient.includes('cyan') ? '06B6D4' : benefit.gradient.includes('emerald') ? '059669' : benefit.gradient.includes('pink') ? 'EC4899' : benefit.gradient.includes('purple') ? 'A855F7' : 'F43F5E'};stop-opacity:1' /%3E%3C/linearGradient%3E%3C/defs%3E%3Crect width='400' height='350' fill='url(%23grad${benefit.id})' rx='15'/%3E%3C/svg%3E`}
