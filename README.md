@@ -1,4 +1,4 @@
-# CashAbroad - Landing Page
+# Prueba CashAbroad - Landing Page
 
 Landing page moderna para CashAbroad, plataforma de conversión de MXN a Divisas con efectos visuales avanzados.
 
